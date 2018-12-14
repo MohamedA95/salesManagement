@@ -1,9 +1,17 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-
+from .forms import productform
 # Create your views here.
 def addpro(request):
-    return render(request,'addproduct.html')
+    if request.method=="POST":
+        form=productform(commit=False)
+        if form.is_valid:
+            product=form.save(commit=False)
+            product.product_type=request.name
+    else:
+        form=productform()
+
+    return render(request,'addproduct.html',{'form':form})
 def rmit(request):
     return render(request,'removeitem.html')
 def addit(request):
