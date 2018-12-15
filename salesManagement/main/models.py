@@ -3,7 +3,9 @@ from django.db import models
 # Create your models here.
 class commission(models.Model):
     product_type=models.CharField( primary_key=True,max_length=100,default='',null=False, blank=False)
-    fee=models.FloatField(null=False, blank=False)
+    multiplyfee=models.FloatField(null=False, blank=False,default=0)
+    addfee=models.FloatField(null=False, blank=False,default=0)
+
 class product(models.Model):
     name=models.CharField(max_length=100,default='',null=False,unique=True, blank=False)
     product_type=models.ForeignKey(commission,on_delete=models.CASCADE)
@@ -21,4 +23,5 @@ class sales(models.Model):
     saleprice=models.FloatField()
     batchid=models.ForeignKey(batch,on_delete=models.SET_DEFAULT,default='')
     profit=models.FloatField()
+    time=models.DateField(auto_now=True)
         
