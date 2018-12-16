@@ -10,9 +10,20 @@
 
 </head>
 <body>
-        {%block body%}
-
+    {%block body%}
+    {% if messages %}
+    {% for message in messages %}
     
+    <li {% if message.tags == 'error' %} class=" alert alert-danger" {% elif message.tags == 'info' %} class="alert alert-info" {% endif %}>{{ message }}</li>
+    {% endfor %}
+    {% endif %}
+    <div class="container">
+        <form method="POST" class="post-form">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="save btn btn-default">Save</button>
+        </form>
+        </div>
     {%endblock%}
 </body>
 </html>

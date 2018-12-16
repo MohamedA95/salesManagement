@@ -8,4 +8,9 @@ class productform(ModelForm):
 class batchform(ModelForm):
     class Meta:
         model=batch
-        fields=['product_type','quant','uid']
+        fields=['product_type','unit_price','quant','uid']
+
+class salesform(ModelForm):
+    class Meta:
+        model=sales
+        fields=['product_type','batchid','quant','saleprice']

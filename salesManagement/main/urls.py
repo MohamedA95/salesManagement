@@ -4,7 +4,9 @@ urlpatterns = [
     path('addpro', views.addpro),
     path('rmit', views.rmit),
     path('addit', views.addit),
-    path('rep', views.rep),
+    path('rep/sales', views.repsales),
+    path('rep/products', views.repproducts),
+    path('rep/batches', views.repbatches),
     path('home', views.home),
     path('',views.login)
 ]
