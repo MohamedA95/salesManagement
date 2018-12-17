@@ -8,7 +8,7 @@ class productSerliz(serializers.ModelSerializer):
 class batchSerliz(serializers.ModelSerializer):
     class Meta:
         model=batch
-        fields=('product_type','unit_price','quant','uid','minselling')
+        fields=('product_type','unit_price','quant','batchid','minselling')
 
 class salesSerliz(serializers.ModelSerializer):
     class Meta:
