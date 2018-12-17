@@ -4,6 +4,7 @@ from .forms import productform,batchform,salesform
 from django.contrib import messages
 from .models import commission,batch
 # Create your views here.
+
 def addpro(request):
     if request.method=="POST":
         form=productform(request.POST)
@@ -19,8 +20,9 @@ def rmit(request):
         if form.is_valid():
             sales=form.save(commit=False)
             salesBatchid=getattr(getattr(sales,'batchid'),'uid')
+            print(salesBatchid)
             batchObj=batch.objects.get(uid__exact=salesBatchid)
-            buyprice=getattr(batch.objects.get(uid__exact=salesBatchid),'unit_price')
+            buyprice=getattr(batchObj,'unit_price')
             currentQuant=getattr(batchObj,'quant')
             if currentQuant<=sales.quant:
                 batch.objects.filter(uid__exact=salesBatchid).update(quant=currentQuant-sales.quant)
@@ -37,6 +39,7 @@ def addit(request):
         if form.is_valid():
             batch=form.save(commit=False)
             product_type=getattr(getattr(getattr(batch,'product_type'),'product_type'),'product_type')
+            batch.unit_price*=3.75
             add=getattr(commission.objects.get(product_type__exact=product_type),'addfee')
             multiply=getattr(commission.objects.get(product_type__exact=product_type),'multiplyfee')
             batch.minselling=(add+float(batch.unit_price))/(1-multiply)
@@ -49,15 +52,15 @@ def addit(request):
     return render(request,'additem.html',{'form':batchform})
 
 def repsales(request):
-    return render(request,'reports.html')
+    return render(request,'repsales.html')
 
 def repproducts(request):
-    return render(request,'reports.html')
+    return render(request,'repproducts.html')
 
 def repbatches(request):
-    return render(request,'reports.html')
+    return render(request,'repbatches.html')
 
 def home(request):
     return render(request,'home.html')
 def login(request):
-    return redirect('accounts/login/')
+    return redirect('/accounts/login/')

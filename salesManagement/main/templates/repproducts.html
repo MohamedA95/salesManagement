@@ -1,0 +1,44 @@
+{%extends 'base.html'%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>    {%block head%}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Products</title>    {%endblock%}
+
+</head>
+<body>
+        {%block body%}
+  <div class="container">
+          <h3>Products Report</h3>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <table id="table" class="table table-striped table-bordered" style="width:100%" data-server-side="true" data-ajax="/api/productVS/?format=datatables">
+          <thead>
+            <tr>
+              <th data-data="name">Name</th>
+              <th data-data="product_type">Product Type</th>
+              <th data-data="image">Image</th>
+              <th data-data="description">Description</th>
+            </tr>
+          </thead>
+ 
+        </table>
+      </div>
+    </div>
+  </div>
+  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script src="//cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+  <script>
+      $(document).ready(function() {$('#table').DataTable();});
+  </script>
+
+    
+    {%endblock%}
+</body>
+</html>
