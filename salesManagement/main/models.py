@@ -23,7 +23,7 @@ class product(models.Model):
         return self.name
 class batch(models.Model):
     product_type=models.ForeignKey(product,on_delete=models.SET_DEFAULT,default='')
-    quant=models.IntegerField(default=0,validators=[MinValueValidator(1)])
+    quant=models.IntegerField(default=0)
     currency=models.ForeignKey(currency,on_delete=models.SET_DEFAULT,default=1)
     unit_price=models.FloatField(default=0.0)
     batchid=models.CharField(primary_key=True,max_length=100,default='',null=False,blank=False,unique=True)

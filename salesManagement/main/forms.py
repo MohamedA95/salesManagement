@@ -1,16 +1,22 @@
-from django.forms import ModelForm
-from .models import product,sales,batch
-class productform(ModelForm):
-    class Meta:
-        model=product
-        fields=['name','product_type','image','description']
+from django import forms
+from .models import product, sales, batch, commission,currency
 
-class batchform(ModelForm):
-    class Meta:
-        model=batch
-        fields=['product_type','unit_price','currency','quant','batchid']
+class productform(forms.Form):
+    name = forms.CharField()
+    product_type = forms.ModelChoiceField(queryset=commission.objects.all(), empty_label=None)
+    image = forms.ImageField()
+    description = forms.CharField()
 
-class salesform(ModelForm):
-    class Meta:
-        model=sales
-        fields=['product_type','batchid','quant','saleprice']
+
+class batchform(forms.Form):
+    product_type = forms.ModelChoiceField(queryset=product.objects.all(), empty_label=None)
+    quant = forms.IntegerField()
+    currency = forms.ModelChoiceField(queryset=currency.objects.all(), empty_label=None)
+    unit_price = forms.FloatField()
+    batchid = forms.CharField()
+
+class salesform(forms.Form):
+    product_type = forms.ModelChoiceField(queryset=product.objects.all(), empty_label=None)
+    quant=forms.IntegerField()
+    saleprice=forms.FloatField()
+    batchid=forms.ModelChoiceField(queryset=batch.objects.filter(quant__gt=0), empty_label=None)
