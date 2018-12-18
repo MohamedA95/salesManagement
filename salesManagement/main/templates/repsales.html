@@ -21,18 +21,16 @@
           <thead>
             <tr>
               <th data-data="product_type">Product Type</th>
-              <th data-data="batchid">Batch ID</th>
               <th data-data="quant">Quantity</th>
               <th data-data="saleprice">Sale Price</th>
               <th data-data="unitprofit">Unit Profit</th>
               <th data-data="totalprofit">Total Profit</th>
-              <th data-data="time">Time</th>
+              <th data-data="date">Date</th>
             </tr>
           </thead>
        <tfoot>
             <tr>
                 <th style="text-align:Left">Total</th>
-                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -60,7 +58,7 @@
                     typeof i === 'number' ?
                         i : 0;
             };
-            var coltosum=[2,3,4,5]
+            var coltosum=[2,3,4,1]
             for (c in coltosum){
             coltosum[c]// Total over all pages
             total = api.column( coltosum[c] ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );

@@ -23,15 +23,18 @@ def rmit(request):
         if form.is_valid():
             sales = form.save(commit=False)
             salesBatchid = getattr(getattr(sales, 'batchid'), 'batchid')
+            print(salesBatchid)
             batchObj = batch.objects.get(batchid__exact=salesBatchid)
             buyprice = getattr(batchObj, 'unit_price')
             currentQuant = getattr(batchObj, 'quant')
-            if currentQuant <= sales.quant:
-                batch.objects.filter(batchid__exact=salesBatchid).update(
-                    quant=currentQuant-sales.quant)
+            if currentQuant > sales.quant:
+                batch.objects.filter(batchid__exact=salesBatchid).update(quant=currentQuant-sales.quant)
+            elif currentQuant == sales.quant:
+                batch.objects.filter(batchid__exact=salesBatchid).delete()
+
             else:
-                messages.error(
-                    request, "Either the product is not added or the Quantity is larger than the avalible!")
+                messages.error(request, "Either the product is not added or the Quantity is larger than the avalible!")
+                return render(request, 'removeitem.html', {'form': salesform})
             sales.unitprofit = sales.saleprice-buyprice
             sales.totalprofit = (sales.saleprice-buyprice)*sales.quant
             sales.save()
@@ -50,8 +53,7 @@ def addit(request):
             exrate = getattr(currency.objects.get(name__exact=proCurrency), 'exrate')
             batch.unit_price *= exrate
             add = getattr(commission.objects.get(product_type__exact=product_type), 'addfee')
-            multiply = getattr(commission.objects.get(
-                product_type__exact=product_type), 'multiplyfee')
+            multiply = getattr(commission.objects.get(product_type__exact=product_type), 'multiplyfee')
             batch.minselling = (add+float(batch.unit_price))/(1-multiply)
             batch.save()
             form.save_m2m()
