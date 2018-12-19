@@ -31,9 +31,12 @@
       </div>
     </div>
   </div>
-  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-  <script src="//cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+  {%load static%}
+  <script src="{% static "js/jquery-1.12.4.js" %}"></script>
+  {%load static%}
+  <script src="{% static "js/jquery.dataTables.min.js" %}"></script>
+  {%load static%}
+  <script src="{% static "js/dataTables.bootstrap4.min.js" %}"></script>
   <script>
       $(document).ready(function() {
               $('#table').DataTable( {

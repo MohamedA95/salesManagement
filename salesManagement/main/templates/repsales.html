@@ -24,6 +24,7 @@
               <th data-data="quant">Quantity</th>
               <th data-data="saleprice">Sale Price</th>
               <th data-data="unitprofit">Unit Profit</th>
+              <th data-data="profitpercent">Unit Profit %</th>
               <th data-data="totalprofit">Total Profit</th>
               <th data-data="date">Date</th>
             </tr>
@@ -36,6 +37,7 @@
                 <th></th>
                 <th></th>
                 <th></th>
+                <th></th>
             </tr>
         </tfoot>
         </table>
@@ -43,9 +45,12 @@
       </div>
     </div>
   </div>
-  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-  <script src="//cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+  {%load static%}
+  <script src="{% static "js/jquery-3.3.1.js" %}"></script>
+  {%load static%}
+  <script src="{% static "js/jquery.dataTables.min.js" %}"></script>
+  {%load static%}
+  <script src="{% static "js/dataTables.bootstrap4.min.js" %}"></script>
   <script>
       $(document).ready(function() {
               $('#table').DataTable( {
@@ -58,14 +63,13 @@
                     typeof i === 'number' ?
                         i : 0;
             };
-            var coltosum=[2,3,4,1]
+            var coltosum=[1,5]
             for (c in coltosum){
-            coltosum[c]// Total over all pages
-            total = api.column( coltosum[c] ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-            // Total over this page
+            // Total over all pages
+            total = api.column( coltosum[c] ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );// Total over this page
             pageTotal = api.column( coltosum[c], { page: 'current'} ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
             // Update footer
-            $( api.column( coltosum[c] ).footer() ).html(+pageTotal +' ( '+ total +' total )');}
+            $( api.column( coltosum[c] ).footer() ).html(+pageTotal);}
         }
     } );});
          

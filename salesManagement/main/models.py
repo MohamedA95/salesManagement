@@ -28,6 +28,7 @@ class batch(models.Model):
     unit_price=models.FloatField(default=0.0)
     batchid=models.CharField(primary_key=True,max_length=100,default='',null=False,blank=False,unique=True)
     minselling=models.FloatField(default=0)
+    date=models.DateField(auto_now=True)
     def __str__(self):
        return self.batchid
 
@@ -37,5 +38,6 @@ class sales(models.Model):
     saleprice=models.FloatField()
     batchid=models.ForeignKey(batch,on_delete = models.SET_NULL, null=True, blank=True,limit_choices_to=Q(quant__gt=0))
     unitprofit=models.FloatField(default=0.0)
+    profitpercent=models.FloatField(default=0.0)
     totalprofit=models.FloatField(default=0.0)
     date=models.DateField(auto_now=True)   

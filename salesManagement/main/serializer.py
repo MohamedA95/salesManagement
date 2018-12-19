@@ -13,7 +13,7 @@ class batchSerliz(serializers.ModelSerializer):
 class salesSerliz(serializers.ModelSerializer):
     class Meta:
         model=sales
-        fields=('product_type','quant','saleprice','unitprofit','totalprofit','date')
+        fields=('product_type','quant','saleprice','unitprofit','profitpercent','totalprofit','date')
 
 class commissionSerliz(serializers.ModelSerializer):
     class Meta:
