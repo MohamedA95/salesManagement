@@ -12,7 +12,7 @@ class batchform(forms.Form):
     product_type = forms.ModelChoiceField(queryset=product.objects.all(), empty_label=None,label="Product Type")
     quant = forms.IntegerField(validators=[MinValueValidator(1)],label="Quantity")
     currency = forms.ModelChoiceField(queryset=currency.objects.all(), empty_label=None,label="Currency",help_text='used to buy the product')
-    unit_price = forms.FloatField(validators=[MinValueValidator(1)],label="Unit Price",help_text='In the chosen currency')
+    total_cost = forms.FloatField(validators=[MinValueValidator(1)],label="Total order cost",help_text='In the chosen currency')
     batchid = forms.CharField(label="Batch ID",help_text='Uniqe ID for this batch of products')
 
 class salesform(forms.Form):

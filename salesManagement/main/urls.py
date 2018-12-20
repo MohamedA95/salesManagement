@@ -2,6 +2,8 @@ from django.urls import path, include
 from . import views
 from .viewset import commissionViewSet,productViewSet,batchViewSet,salesViewSet
 from rest_framework import routers
+from django.conf import settings
+from django.conf.urls.static import static
 
 router=routers.DefaultRouter()
 router.register(r'commissionVS',commissionViewSet)
@@ -21,3 +23,6 @@ urlpatterns = [
     path('api/',include(router.urls)),
     
 ]
+
+if settings.DEBUG is True:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

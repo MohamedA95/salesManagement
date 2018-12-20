@@ -17,7 +17,7 @@ class commission(models.Model):
 class product(models.Model):
     name=models.CharField(primary_key=True,max_length=100,default='',null=False,unique=True, blank=False)
     product_type=models.ForeignKey(commission,on_delete=models.CASCADE)
-    image=models.ImageField(upload_to='ProductsImages',blank=True,null=True)
+    image=models.ImageField(upload_to='ProductsImages',blank=True,null=True,default='')
     description=models.CharField(max_length=1000,default='',blank=True,null=True)
     def __str__(self):
         return self.name

@@ -8,13 +8,14 @@ from .models import commission, batch, currency,sales,product
 
 def addpro(request):
     if request.method == "POST":
-        form = productform(request.POST)
+        form = productform(request.POST,request.FILES)
         if form.is_valid():
             proObj=product()
             proObj.product_type=form.cleaned_data['product_type']
             proObj.name=form.cleaned_data['name']
-            proObj.image=form.cleaned_data['image']
+            proObj.image=request.FILES['image']
             proObj.description=form.cleaned_data['description']
+            print(proObj.image)
             proObj.save()
             messages.info(request, "Product added successfully!")
         else:
@@ -63,7 +64,7 @@ def addit(request):
             batchObj.product_type=form.cleaned_data['product_type']
             batchObj.quant=form.cleaned_data['quant']
             batchObj.currency=form.cleaned_data['currency']
-            batchObj.unit_price=form.cleaned_data['unit_price']
+            batchObj.unit_price=form.cleaned_data['total_cost']/batchObj.quant
             batchObj.batchid=form.cleaned_data['batchid']
             product_type = getattr(getattr(getattr(batchObj, 'product_type'), 'product_type'), 'product_type')
             exrate = getattr(currency.objects.get(name__exact=batchObj.currency), 'exrate')

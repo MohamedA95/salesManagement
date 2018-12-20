@@ -20,7 +20,7 @@
     {% endfor %}
     {% endif %}
     <div class="container">
-        <form method="POST" class="post-form">
+        <form method="POST" enctype="multipart/form-data" class="post-form">
             {% csrf_token %}
             {{form.as_p}}
             <button type="submit" class="save btn btn-default">Save</button>
