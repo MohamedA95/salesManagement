@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models import Q
 from django.db.models.signals import post_save
+from django.conf import settings
+import os
 # Create your models here.
 class currency(models.Model):
     name=models.CharField(primary_key=True,max_length=100,default='USD')
@@ -17,6 +19,7 @@ class commission(models.Model):
 class product(models.Model):
     name=models.CharField(primary_key=True,max_length=100,default='',null=False,unique=True, blank=False)
     product_type=models.ForeignKey(commission,on_delete=models.CASCADE)
+    rimage=models.CharField(max_length=1000,default='',blank=True,null=True)
     image=models.ImageField(upload_to='ProductsImages',blank=True,null=True,default='')
     description=models.CharField(max_length=1000,default='',blank=True,null=True)
     def __str__(self):
@@ -29,6 +32,7 @@ class batch(models.Model):
     batchid=models.CharField(primary_key=True,max_length=100,default='',null=False,blank=False,unique=True)
     minselling=models.FloatField(default=0)
     date=models.DateField(auto_now=True)
+    total_cost=models.FloatField(default=0.0)
     def __str__(self):
        return self.batchid
 
@@ -41,3 +45,4 @@ class sales(models.Model):
     profitpercent=models.FloatField(default=0.0)
     totalprofit=models.FloatField(default=0.0)
     date=models.DateField(auto_now=True)   
+

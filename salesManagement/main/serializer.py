@@ -3,12 +3,12 @@ from .models import product,batch,sales,commission
 class productSerliz(serializers.ModelSerializer):
     class Meta:
         model=product
-        fields=('name','product_type','image','description')
+        fields=('name','product_type','rimage','description')
 
 class batchSerliz(serializers.ModelSerializer):
     class Meta:
         model=batch
-        fields=('product_type','unit_price','quant','batchid','minselling')
+        fields=('product_type','unit_price','quant','batchid','minselling','total_cost')
 
 class salesSerliz(serializers.ModelSerializer):
     class Meta:
