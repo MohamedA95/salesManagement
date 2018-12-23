@@ -28,6 +28,16 @@
               <th data-data="minselling">Min selling price</th>
             </tr>
           </thead>
+            <tfoot>
+            <tr>
+                <th style="text-align:Left">Total</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </tfoot>
         </table>
       </div>
     </div>
@@ -50,14 +60,14 @@
                     typeof i === 'number' ?
                         i : 0;
             };
-            var coltosum=[2,1]
+            var coltosum=[2,4]
             for (c in coltosum){
             coltosum[c]// Total over all pages
-            total = api.column( coltosum[c] ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+            {% comment %} total = api.column( coltosum[c] ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 ); {% endcomment %}
             // Total over this page
             pageTotal = api.column( coltosum[c], { page: 'current'} ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
             // Update footer
-            $( api.column( coltosum[c] ).footer() ).html(+pageTotal +' ( '+ total +' total )');}
+            $( api.column( coltosum[c] ).footer() ).html(pageTotal);}
         }
     } );});
          

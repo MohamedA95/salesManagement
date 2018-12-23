@@ -19,6 +19,7 @@ urlpatterns = [
     path('rep/products', views.repproducts),
     path('rep/batches', views.repbatches),
     path('home', views.home),
+    path('calc',views.calc),
     path('',views.login),
     path('api/',include(router.urls)),
     

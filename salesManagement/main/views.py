@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from .forms import productform, batchform, salesform
+from .forms import productform, batchform, salesform,calcform
 from django.contrib import messages
 from .models import commission, batch, currency,sales,product
 from django.conf import settings
@@ -16,8 +16,8 @@ def addpro(request):
             proObj.product_type=form.cleaned_data['product_type']
             proObj.name=form.cleaned_data['name']
             if(len(request.FILES)>0):
-                proObj.image=request.FILES['image',False]
-                proObj.rimage="<img height='20%' width='100%' src='"+request.build_absolute_uri('/')+"media/ProductsImages/"+str(proObj.image)+"'/>"
+                proObj.image=request.FILES['image']
+                proObj.rimage="<img height='20%' width='100%' src='"+request.build_absolute_uri('/')+"media/ProductsImages/"+proObj.name+'.'+str(proObj.image).split('.')[-1]+"'/>"
             else:
                 proObj.image=None
                 proObj.rimage=''
@@ -91,23 +91,31 @@ def addit(request):
                 messages.error(request, "ERROR:"+e)
     return render(request, 'additem.html', {'form': batchform})
 
-
 def repsales(request):
     return render(request, 'repsales.html')
-
 
 def repproducts(request):
     return render(request, 'repproducts.html')
 
-
 def repbatches(request):
     return render(request, 'repbatches.html')
-
 
 def home(request):
     return render(request, 'home.html')
 
-
 def login(request):
     return redirect('/accounts/login/')
 
+def calc(request):
+    if request.method=="POST":
+        form=calcform(request.POST)
+        if form.is_valid() :
+            product_type = form.cleaned_data['product_type']
+            add = getattr(commission.objects.get(product_type__exact=product_type), 'addfee')
+            multiply = getattr(commission.objects.get(product_type__exact=product_type), 'multiplyfee')
+            exrate = getattr(currency.objects.get(name__exact=form.cleaned_data['currency']), 'exrate')
+            localprice=form.cleaned_data['local_price']
+            onlineprice=float(form.cleaned_data['unit_cost'])*exrate
+            minselling = add+onlineprice/(1-multiply)
+            messages.info(request, "Min selling price is "+str(minselling)+" The diff is "+str(localprice-minselling))
+    return render(request, 'calc.html', {'form': calcform})

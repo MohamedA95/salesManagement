@@ -2,8 +2,11 @@ from django.db import models
 from django.db.models import Q
 from django.db.models.signals import post_save
 from django.conf import settings
-import os
+import uuid
 # Create your models here.
+def filename_generator(pro, _):
+    filename = "{}.{}".format(pro.name,str(pro.image).split('.')[-1])
+    return 'ProductsImages/'+filename
 class currency(models.Model):
     name=models.CharField(primary_key=True,max_length=100,default='USD')
     exrate=models.FloatField(blank=False,null=False,default=3.75)
@@ -20,7 +23,7 @@ class product(models.Model):
     name=models.CharField(primary_key=True,max_length=100,default='',null=False,unique=True, blank=False)
     product_type=models.ForeignKey(commission,on_delete=models.CASCADE)
     rimage=models.CharField(max_length=1000,default='',blank=True,null=True)
-    image=models.ImageField(upload_to='ProductsImages',blank=True,null=True,default='')
+    image=models.ImageField(upload_to=filename_generator,blank=True,null=True,default='')
     description=models.CharField(max_length=1000,default='',blank=True,null=True)
     def __str__(self):
         return self.name
@@ -37,7 +40,7 @@ class batch(models.Model):
        return self.batchid
 
 class sales(models.Model):
-    product_type=models.ForeignKey(product,on_delete=models.SET_DEFAULT,default='')
+    product_type=models.ForeignKey(product,on_delete=models.SET_NULL,null=True,default='')
     quant=models.IntegerField()
     saleprice=models.FloatField()
     batchid=models.ForeignKey(batch,on_delete = models.SET_NULL, null=True, blank=True,limit_choices_to=Q(quant__gt=0))
