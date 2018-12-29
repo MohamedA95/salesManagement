@@ -7,7 +7,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sales</title>    {%endblock%}
+    <title>Sales</title>  
+    <script   src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    {%endblock%}
 
 </head>
 <body>
@@ -58,18 +60,17 @@
             var api = this.api(), data;
             // Remove the formatting to get integer data for summation
             var intVal = function ( i ) {
-                return typeof i === 'string' ?
-                    i.replace(/[\$,]/g, '')*1 :
-                    typeof i === 'number' ?
-                        i : 0;
+                return typeof i === 'string' ? i.replace(/[\$,]/g, '')*1 : typeof i === 'number' ? i : 0;
             };
             var coltosum=[1,5]
             for (c in coltosum){
             // Total over all pages
-            total = api.column( coltosum[c] ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );// Total over this page
+            console.log(api.column( coltosum[c] ).data())
+            total = api.column( coltosum[c] ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+            // Total over this page
             pageTotal = api.column( coltosum[c], { page: 'current'} ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
             // Update footer
-            $( api.column( coltosum[c] ).footer() ).html(+pageTotal);}
+            $( api.column( coltosum[c] ).footer() ).html(pageTotal+'('+total+')');}
         }
     } );});
          

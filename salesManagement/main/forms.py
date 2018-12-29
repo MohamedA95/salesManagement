@@ -36,7 +36,7 @@ class batchform(forms.Form):
 class salesform(forms.Form):
     product_type = forms.ModelChoiceField(queryset=product.objects.all(), empty_label=None,label="Product")
     quant=forms.IntegerField(validators=[MinValueValidator(1)],label="Quantity")
-    saleprice=forms.FloatField(validators=[MinValueValidator(0)],label="Revenue")
+    saleprice=forms.FloatField(validators=[MinValueValidator(0)],label="Revenue",help_text='per unit')
     batchid=forms.ModelChoiceField(queryset=batch.objects.filter(quant__gt=0), empty_label=None,label="Batch ID")
 
 class calcform(forms.Form):
