@@ -53,6 +53,9 @@ def rmit(request):
             elif batchQuant == salesObj.quant:
                 batch.objects.filter(batchid__exact=salesObj.batchid).delete()
                 salesObj.batchid=None
+                if not batch.objects.filter(product_type__exact=salesObj.product_type).exists():
+                    product.objects.filter(name__exact=salesObj.product_type).update(avalible=False)
+
             else:
                 messages.error(request, "Either the product is not added or the Quantity is larger than the avalible!")
                 return render(request, 'removeitem.html', {'form': salesform})
@@ -85,6 +88,7 @@ def addit(request):
             multiply = getattr(commission.objects.get(product_type__exact=product_type), 'multiplyfee')
             batchObj.minselling = (add+float(batchObj.unit_price))/(1-multiply)
             batchObj.save()
+            product.objects.filter(name__exact=form.cleaned_data['product_type']).update(avalible=True)
             messages.info(request, "Item added successfully!")
         else:
             for e in form.errors:

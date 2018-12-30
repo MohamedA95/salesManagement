@@ -10,13 +10,9 @@ class productform(forms.Form):
     def is_valid(self):
         if not super().is_valid():
             return  False
-        try:
-            pro=product.objects.get(name__exact=self.cleaned_data['name'])
-            print("try")
-        except:
-            print("excapt")
-            return True
-        return False
+        if product.objects.filter(name__exact=self.cleaned_data['name']).exists():
+            return False
+        return True
 class batchform(forms.Form):
     product_type = forms.ModelChoiceField(queryset=product.objects.all(), empty_label=None,label="Product")
     quant = forms.IntegerField(validators=[MinValueValidator(1)],label="Quantity")
@@ -26,15 +22,12 @@ class batchform(forms.Form):
     def is_valid(self):
         if not super().is_valid():
             return  False
-        try:
-            pro=product.objects.get(batchid__exact=self.cleaned_data['batchid'])
-            print("try")
-        except:
-            print("excapt")
-            return True
-        return False
+        if batch.objects.filter(batchid__exact=self.cleaned_data['batchid']).exists():
+            return False
+        return True
+        
 class salesform(forms.Form):
-    product_type = forms.ModelChoiceField(queryset=product.objects.all(), empty_label=None,label="Product")
+    product_type = forms.ModelChoiceField(queryset=product.objects.filter(avalible__exact=True), empty_label=None,label="Product")
     quant=forms.IntegerField(validators=[MinValueValidator(1)],label="Quantity")
     saleprice=forms.FloatField(validators=[MinValueValidator(0)],label="Revenue",help_text='per unit')
     batchid=forms.ModelChoiceField(queryset=batch.objects.filter(quant__gt=0), empty_label=None,label="Batch ID")

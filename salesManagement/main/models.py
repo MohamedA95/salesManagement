@@ -2,7 +2,6 @@ from django.db import models
 from django.db.models import Q
 from django.db.models.signals import post_save
 from django.conf import settings
-import uuid
 # Create your models here.
 def filename_generator(pro, _):
     filename = "{}.{}".format(pro.name,str(pro.image).split('.')[-1])
@@ -25,6 +24,7 @@ class product(models.Model):
     rimage=models.CharField(max_length=1000,default='',blank=True,null=True)
     image=models.ImageField(upload_to=filename_generator,blank=True,null=True,default='')
     description=models.CharField(max_length=1000,default='',blank=True,null=True)
+    avalible=models.BooleanField(default=False)
     def __str__(self):
         return self.name
 class batch(models.Model):
