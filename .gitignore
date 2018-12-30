@@ -1,7 +1,8 @@
 .vscode/
-__pycache__/
-*.pyc
 media/
-*.sqlite3
-*pyc
 db.sqlite3
+salesManagement/main/__pycache__/
+salesManagement/db.sqlite3
+salesManagement/main/migrations/
+salesManagement/salesManagement/__pycache__/
+salesManagement/salesManagement/__pycache__
