@@ -2,80 +2,94 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>    {%block head%}
+
+<head> {%block head%}
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sales</title>  
-    <script   src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <title>Sales</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script>
+        $('document').ready(function () {
+            $('.nav-item').find('li.active').removeClass('active');
+            $('#sales').addClass('active');
+
+
+        });
+    </script>
     {%endblock%}
 
 </head>
+
 <body>
     {%block body%}
-      <div class="container">
+    <div class="container">
         <h3>Sales Report</h3>
 
-    <div class="row">
-      <div class="col-sm-12">
-        <table id="table" class="table table-striped table-bordered" style="width:100%" data-server-side="true" data-ajax="/api/salesVS/?format=datatables">
-          <thead>
-            <tr>
-              <th data-data="product_type">Product Type</th>
-              <th data-data="quant">Quantity</th>
-              <th data-data="saleprice">Sale Price</th>
-              <th data-data="unitprofit">Unit Profit</th>
-              <th data-data="profitpercent">Unit Profit %</th>
-              <th data-data="totalprofit">Total Profit</th>
-              <th data-data="date">Date</th>
-            </tr>
-          </thead>
-       <tfoot>
-            <tr>
-                <th style="text-align:Left">Total</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-        </tfoot>
-        </table>
-         
-      </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="table" class="table table-striped table-bordered" style="width:100%" data-server-side="true"
+                    data-ajax="/api/salesVS/?format=datatables">
+                    <thead>
+                        <tr>
+                            <th data-data="product_type">Product Type</th>
+                            <th data-data="quant">Quantity</th>
+                            <th data-data="saleprice">Sale Price</th>
+                            <th data-data="unitprofit">Unit Profit</th>
+                            <th data-data="profitpercent">Unit Profit %</th>
+                            <th data-data="totalprofit">Total Profit</th>
+                            <th data-data="date">Date</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th style="text-align:Left">Total</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+        </div>
     </div>
-  </div>
-  {%load static%}
-  <script src="{% static "js/jquery-3.3.1.js" %}"></script>
-  {%load static%}
-  <script src="{% static "js/jquery.dataTables.min.js" %}"></script>
-  {%load static%}
-  <script src="{% static "js/dataTables.bootstrap4.min.js" %}"></script>
-  <script>
-      $(document).ready(function() {
-              $('#table').DataTable( {
-        "footerCallback": function ( row, data, start, end, display ) {
-            var api = this.api(), data;
-            // Remove the formatting to get integer data for summation
-            var intVal = function ( i ) {
-                return typeof i === 'string' ? i.replace(/[\$,]/g, '')*1 : typeof i === 'number' ? i : 0;
-            };
-            var coltosum=[1,5]
-            for (c in coltosum){
-            // Total over all pages
-            console.log(api.column( coltosum[c] ).data())
-            total = api.column( coltosum[c] ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-            // Total over this page
-            pageTotal = api.column( coltosum[c], { page: 'current'} ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
-            // Update footer
-            $( api.column( coltosum[c] ).footer() ).html(pageTotal+'('+total+')');}
-        }
-    } );});
-         
-  </script>
+    {%load static%}
+    <script src="{% static "js/jquery-3.3.1.js" %}"></script>
+    {%load static%}
+    <script src="{% static "js/jquery.dataTables.min.js" %}"></script>
+    {%load static%}
+    <script src="{% static "js/dataTables.bootstrap4.min.js" %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable({
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api(), data;
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function (i) {
+                        return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
+                    };
+                    var coltosum = [1, 5]
+                    for (c in coltosum) {
+                        // Total over all pages
+                        total = api.column(coltosum[c]).data().reduce(function (a, b) { return intVal(a) + intVal(b); }, 0);
+                        // Total over this page
+                        pageTotal = api.column(coltosum[c], { page: 'current' }).data().reduce(function (a, b) { return intVal(a) + intVal(b); }, 0);
+                        // Update footer
+                        $(api.column(coltosum[c]).footer()).html(pageTotal + '(' + total + ')');
+                    }
+                }
+            });
+        });
+
+    </script>
 
     {%endblock%}
 </body>
+
 </html>

@@ -1,4 +1,6 @@
 .active {
-	background-color: #333;
-	color: #fff;
+	background-color: rgb(172, 179, 185);
+}
+li{
+	border-radius: 7px;
 }

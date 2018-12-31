@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+        {%load static%}
+  <script src="{% static "js/jquery-3.3.1.js" %}"></script>
     {%block head%}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,9 +21,9 @@
 <link rel="stylesheet" type="text/css" href="{%static "css/jquery.dataTables.css" %}">
     {%load static%}
 <script type="text/javascript" charset="utf8" src="{%static "js/jquery.dataTables.js" %}"></script>
-        {%load static%}
+{%load static%}
 <link rel="stylesheet" type="text/css" href="{%static "css/custom.css" %}">
-
+    
 </head>
 {%if user.is_authenticated%}
 <body>
@@ -51,8 +53,6 @@
     <script src="{% static "js/popper.min.js"%}"></script>
     {%load static%}
     <script src="{% static "js/bootstrap.min.js"%}"></script>
-{%load static%}
-<script type="text/javascript" charset="utf8" src="{%static "js/custom.js" %}"></script>
         <br>
         {%block body%}
         {%endblock%}

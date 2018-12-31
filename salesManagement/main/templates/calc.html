@@ -2,29 +2,33 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>    {%block head%}
+
+<head> {%block head%}
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Calcultate Profit</title>    {%endblock%}
+    <title>Calcultate Profit</title> {%endblock%}
 
 </head>
+
 <body>
     {%block body%}
     {% if messages %}
     {% for message in messages %}
-    
-    <li {% if message.tags == 'error' %} class=" alert alert-danger" {% elif message.tags == 'info' %} class="alert alert-info" {% endif %}>{{ message }}</li>
+
+    <li {% if message.tags=='error' %} class=" alert alert-danger" {% elif message.tags=='info' %} class="alert alert-info"
+        {% endif %}>{{ message }}</li>
     {% endfor %}
     {% endif %}
     <div class="container">
         <form method="POST" class="post-form">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit" class="save btn btn-default">Save</button>
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="save btn btn-default">Save</button>
         </form>
-        </div>
+    </div>
     {%endblock%}
 </body>
+
 </html>

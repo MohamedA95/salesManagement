@@ -2,22 +2,33 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>    {%block head%}
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Batches</title>    {%endblock%}
+<head> {%block head%}
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Batches</title>
+  <script>
+    $('document').ready(function () {
+      $('.nav-item').find('li.active').removeClass('active');
+      $('#batches').addClass('active');
+
+
+    });
+  </script> {%endblock%}
 
 </head>
+
 <body>
-        {%block body%}
+  {%block body%}
   <div class="container">
-          <h3>Batches Report</h3>
+    <h3>Batches Report</h3>
 
     <div class="row">
       <div class="col-sm-12">
-        <table id="table" class="table table-striped table-bordered" style="width:100%" data-server-side="true" data-ajax="/api/batchVS/?format=datatables">
+        <table id="table" class="table table-striped table-bordered" style="width:100%" data-server-side="true"
+          data-ajax="/api/batchVS/?format=datatables">
           <thead>
             <tr>
               <th data-data="product_type">Product Type</th>
@@ -28,16 +39,16 @@
               <th data-data="minselling">Min selling price</th>
             </tr>
           </thead>
-            <tfoot>
+          <tfoot>
             <tr>
-                <th style="text-align:Left">Total</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
+              <th style="text-align:Left">Total</th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
             </tr>
-        </tfoot>
+          </tfoot>
         </table>
       </div>
     </div>
@@ -49,31 +60,34 @@
   {%load static%}
   <script src="{% static "js/dataTables.bootstrap4.min.js" %}"></script>
   <script>
-      $(document).ready(function() {
-              $('#table').DataTable( {
-        "footerCallback": function ( row, data, start, end, display ) {
-            var api = this.api(), data;
-            // Remove the formatting to get integer data for summation
-            var intVal = function ( i ) {
-                return typeof i === 'string' ?
-                    i.replace(/[\$,]/g, '')*1 :
-                    typeof i === 'number' ?
-                        i : 0;
-            };
-            var coltosum=[2,4]
-            for (c in coltosum){
+    $(document).ready(function () {
+      $('#table').DataTable({
+        "footerCallback": function (row, data, start, end, display) {
+          var api = this.api(), data;
+          // Remove the formatting to get integer data for summation
+          var intVal = function (i) {
+            return typeof i === 'string' ?
+              i.replace(/[\$,]/g, '') * 1 :
+              typeof i === 'number' ?
+                i : 0;
+          };
+          var coltosum = [2, 4]
+          for (c in coltosum) {
             coltosum[c]// Total over all pages
-            {% comment %} total = api.column( coltosum[c] ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 ); {% endcomment %}
+            {% comment %} total = api.column(coltosum[c]).data().reduce(function (a, b) { return intVal(a) + intVal(b); }, 0); {% endcomment %}
             // Total over this page
-            pageTotal = api.column( coltosum[c], { page: 'current'} ).data().reduce( function (a, b) {return intVal(a) + intVal(b);}, 0 );
+            pageTotal = api.column(coltosum[c], { page: 'current' }).data().reduce(function (a, b) { return intVal(a) + intVal(b); }, 0);
             // Update footer
-            $( api.column( coltosum[c] ).footer() ).html(pageTotal);}
+            $(api.column(coltosum[c]).footer()).html(pageTotal);
+          }
         }
-    } );});
-         
+      });
+    });
+
   </script>
 
-    
-    {%endblock%}
+
+  {%endblock%}
 </body>
+
 </html>
