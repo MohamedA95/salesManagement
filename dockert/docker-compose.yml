@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+
+  djangoapp:
+    build: .
+    networks:
+      - salesmanagementDB_network
+      - nginx_network
+    depends_on:
+      - salesmanagementDB 
+    env_file:
+      - config/envVars.env
+   
+  nginx:
+    image: nginx:1.15.8
+    ports:
+      - 80:80
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:  # <-- wait for djangoapp to be "ready" before starting this service
+      - djangoapp
+    networks:
+      - nginx_network
+
+  salesmanagementDB:
+    image: postgres:11.1
+    env_file:
+        - config/envVars.env
+    networks:
+        - salesmanagementDB_network
+    volumes:
+        - salesmanagementDB_volume:/var/lib/postgresql/data
+networks:
+  nginx_network:
+    driver: bridge
+  salesmanagementDB_network:
+    driver: bridge
+volumes:
+  salesmanagementDB_volume:
