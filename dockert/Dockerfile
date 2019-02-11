@@ -3,6 +3,9 @@ FROM python:3.7.2-stretch
 
 # arbitrary location choice: you can change the directory
 RUN mkdir -p /opt/services/djangoapp/src
+RUN mkdir -p /var/www/salesmanagement/media
+RUN mkdir -p /var/www/salesmanagement/static
+RUN chmod -R 777 /var/www/salesmanagement
 WORKDIR /opt/services/djangoapp/src
 COPY djangoEntrypoint.sh /start.sh
 # install our two dependencies

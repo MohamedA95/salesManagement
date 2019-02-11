@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('djsecret','=9eid=l%3vrw!1e!6gthq=@n)0k)6ybnatlzd-ou6@=6@&(s9b')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG',False)
 
 ALLOWED_HOSTS = []
 
@@ -128,7 +128,7 @@ REST_FRAMEWORK = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'UTC+3'
 
 USE_I18N = True
 
@@ -140,8 +140,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 ENV_PATH = os.path.abspath(os.path.dirname(__file__))
-MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
-STATIC_ROOT= os.path.join(ENV_PATH, 'static/')
+MEDIA_ROOT = os.environ.get('DJANGOMEDIAROOT')
+STATIC_ROOT= os.environ.get('DJANGOSTATICROOT')
 STATIC_URL = '/static/'
 MEDIA_URL = "/media/"
 LOGIN_REDIRECT_URL = '/home'

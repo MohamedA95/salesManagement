@@ -11,6 +11,9 @@ services:
       - salesmanagementDB 
     env_file:
       - config/envVars.env
+    volumes: 
+      - static_volume: ${DJANGOSTATICROOT}
+      - media_volume: ${DJANGOMEDIAROOT}
    
   nginx:
     image: nginx:1.15.8
@@ -18,6 +21,8 @@ services:
       - 80:80
     volumes:
       - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - static_volume: ${DJANGOSTATICROOT}
+      - media_volume: ${DJANGOMEDIAROOT}
     depends_on:  # <-- wait for djangoapp to be "ready" before starting this service
       - djangoapp
     networks:
@@ -38,3 +43,5 @@ networks:
     driver: bridge
 volumes:
   salesmanagementDB_volume:
+  static_volume: 
+  media_volume:  
