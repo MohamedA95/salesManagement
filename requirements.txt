@@ -2,5 +2,5 @@ Django==2.1.5
 djangorestframework==3.9.0
 djangorestframework-datatables==0.4.1
 gunicorn==19.9.0
-psycopg2==2.7.7
+ psycopg2-binary==2.7.7
 Pillow==5.4.1
