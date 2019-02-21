@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import product,batch,sales,commission
+from .models import product,batch,sales,feeprog
 class productSerliz(serializers.ModelSerializer):
     class Meta:
         model=product
@@ -8,14 +8,14 @@ class productSerliz(serializers.ModelSerializer):
 class batchSerliz(serializers.ModelSerializer):
     class Meta:
         model=batch
-        fields=('product_type','unit_price','quant','batchid','minselling','total_cost')
+        fields=('product_type','unit_price','quant','batchid','minselling','total_cost','profit10')
 
 class salesSerliz(serializers.ModelSerializer):
     class Meta:
         model=sales
         fields=('product_type','quant','saleprice','unitprofit','profitpercent','totalprofit','date')
 
-class commissionSerliz(serializers.ModelSerializer):
+class feeprogSerliz(serializers.ModelSerializer):
     class Meta:
-        model=commission
-        fields=('product_type','multiplyfee','addfee')
+        model=feeprog
+        fields=('name','addfee','mulfee')

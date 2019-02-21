@@ -11,16 +11,16 @@ class currency(models.Model):
     exrate=models.FloatField(blank=False,null=False,default=3.75)
     def __str__(self):
         return self.name
-class commission(models.Model):
-    product_type=models.CharField( primary_key=True,max_length=100,default='',null=False, blank=False)
-    multiplyfee=models.FloatField(null=False, blank=False,default=0)
-    addfee=models.FloatField(null=False, blank=False,default=0)
+class feeprog(models.Model):
+    name=models.CharField(primary_key=True,max_length=100,default='',null=False,unique=True, blank=False)
+    addfee=models.FloatField(default=0)
+    mulfee=models.FloatField(default=1)
     def __str__(self):
-        return self.product_type
+        return self.name        
 
 class product(models.Model):
     name=models.CharField(primary_key=True,max_length=100,default='',null=False,unique=True, blank=False)
-    product_type=models.ForeignKey(commission,on_delete=models.CASCADE)
+    product_type=models.CharField(primary_key=True,max_length=100,default='',null=False,unique=True, blank=False)
     rimage=models.CharField(max_length=1000,default='',blank=True,null=True)
     image=models.ImageField(upload_to=filename_generator,blank=True,null=True,default='')
     description=models.CharField(max_length=1000,default='',blank=True,null=True)
@@ -36,6 +36,7 @@ class batch(models.Model):
     minselling=models.FloatField(default=0)
     date=models.DateField(auto_now=True)
     total_cost=models.FloatField(default=0.0)
+    profit10=models.FloatField(default=0.0)
     def __str__(self):
        return self.batchid
 
@@ -47,5 +48,5 @@ class sales(models.Model):
     unitprofit=models.FloatField(default=0.0)
     profitpercent=models.FloatField(default=0.0)
     totalprofit=models.FloatField(default=0.0)
-    date=models.DateField(auto_now=True)   
-
+    date=models.DateField(auto_now=True)
+    feeprog=models.ForeignKey(feeprog,on_delete=models.SET_NULL,null=True)

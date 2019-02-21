@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from .forms import productform, batchform, salesform,calcform
 from django.contrib import messages
-from .models import commission, batch, currency,sales,product
+from .models import  batch, currency,sales,product
 from django.conf import settings
 
 # Create your views here.
@@ -84,9 +84,10 @@ def addit(request):
             exrate = getattr(currency.objects.get(name__exact=batchObj.currency), 'exrate')
             batchObj.unit_price *= exrate
             batchObj.total_cost=form.cleaned_data['total_cost']*exrate
-            add = getattr(commission.objects.get(product_type__exact=product_type), 'addfee')
-            multiply = getattr(commission.objects.get(product_type__exact=product_type), 'multiplyfee')
+            add = getattr(feeprog.objects.get(product_type__exact=product_type), 'addfee')
+            multiply = getattr(feeprog.objects.get(product_type__exact=product_type), 'multiplyfee')
             batchObj.minselling = (add+float(batchObj.unit_price))/(1-multiply)
+            batchObj.profit10 = (add+float(batchObj.unit_price))/(1-multiply-0.1)
             batchObj.save()
             product.objects.filter(name__exact=form.cleaned_data['product_type']).update(avalible=True)
             messages.info(request, "Item added successfully!")
