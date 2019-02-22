@@ -1,11 +1,11 @@
-from .serializer import productSerliz,batchSerliz,salesSerliz,commissionSerliz
-from .models import commission,product,batch,sales
+from .serializer import productSerliz,batchSerliz,salesSerliz,feeprogSerliz
+from .models import feeprog,product,batch,sales
 from rest_framework import viewsets
 from rest_framework import permissions
 
-class commissionViewSet(viewsets.ModelViewSet):
-    queryset=commission.objects.all()
-    serializer_class=commissionSerliz
+class feeprogViewSet(viewsets.ModelViewSet):
+    queryset=feeprog.objects.all()
+    serializer_class=feeprogSerliz
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 class productViewSet(viewsets.ModelViewSet):

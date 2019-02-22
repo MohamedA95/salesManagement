@@ -20,7 +20,6 @@ class feeprog(models.Model):
 
 class product(models.Model):
     name=models.CharField(primary_key=True,max_length=100,default='',null=False,unique=True, blank=False)
-    product_type=models.CharField(primary_key=True,max_length=100,default='',null=False,unique=True, blank=False)
     rimage=models.CharField(max_length=1000,default='',blank=True,null=True)
     image=models.ImageField(upload_to=filename_generator,blank=True,null=True,default='')
     description=models.CharField(max_length=1000,default='',blank=True,null=True)
@@ -37,6 +36,7 @@ class batch(models.Model):
     date=models.DateField(auto_now=True)
     total_cost=models.FloatField(default=0.0)
     profit10=models.FloatField(default=0.0)
+    feeprog=models.ForeignKey(feeprog,on_delete=models.SET_NULL,null=True)
     def __str__(self):
        return self.batchid
 
@@ -49,4 +49,3 @@ class sales(models.Model):
     profitpercent=models.FloatField(default=0.0)
     totalprofit=models.FloatField(default=0.0)
     date=models.DateField(auto_now=True)
-    feeprog=models.ForeignKey(feeprog,on_delete=models.SET_NULL,null=True)

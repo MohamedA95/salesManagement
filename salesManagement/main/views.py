@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from .forms import productform, batchform, salesform,calcform
 from django.contrib import messages
-from .models import  batch, currency,sales,product
+from .models import  batch, currency,sales,product,feeprog
 from django.conf import settings
 
 # Create your views here.
@@ -13,7 +13,6 @@ def addpro(request):
         form = productform(request.POST,request.FILES)
         if form.is_valid():
             proObj=product()
-            proObj.product_type=form.cleaned_data['product_type']
             proObj.name=form.cleaned_data['name']
             if(len(request.FILES)>0):
                 proObj.image=request.FILES['image']
@@ -76,16 +75,16 @@ def addit(request):
         if form.is_valid():
             batchObj=batch()
             batchObj.product_type=form.cleaned_data['product_type']
+            batchObj.feeprog=form.cleaned_data['feeprog']
             batchObj.quant=form.cleaned_data['quant']
             batchObj.currency=form.cleaned_data['currency']
             batchObj.unit_price=form.cleaned_data['total_cost']/batchObj.quant
             batchObj.batchid=form.cleaned_data['batchid']
-            product_type = getattr(getattr(getattr(batchObj, 'product_type'), 'product_type'), 'product_type')
             exrate = getattr(currency.objects.get(name__exact=batchObj.currency), 'exrate')
+            add = getattr(feeprog.objects.get(name__exact=batchObj.feeprog), 'addfee')
+            multiply = getattr(feeprog.objects.get(name__exact=batchObj.feeprog), 'mulfee')/100
             batchObj.unit_price *= exrate
             batchObj.total_cost=form.cleaned_data['total_cost']*exrate
-            add = getattr(feeprog.objects.get(product_type__exact=product_type), 'addfee')
-            multiply = getattr(feeprog.objects.get(product_type__exact=product_type), 'multiplyfee')
             batchObj.minselling = (add+float(batchObj.unit_price))/(1-multiply)
             batchObj.profit10 = (add+float(batchObj.unit_price))/(1-multiply-0.1)
             batchObj.save()

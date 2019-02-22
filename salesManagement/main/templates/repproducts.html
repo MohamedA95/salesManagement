@@ -4,10 +4,6 @@
 <html lang="en">
 
 <head> {%block head%}
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Products</title>
   <script>
     $('document').ready(function () {
@@ -33,7 +29,6 @@
           <thead>
             <tr>
               <th data-data="name">Name</th>
-              <th data-data="product_type">Product Type</th>
               <th data-data="rimage">Image</th>
               <th data-data="description">Description</th>
             </tr>
@@ -43,8 +38,6 @@
       </div>
     </div>
   </div>
-  {%load static%}
-  <script src="{% static "js/jquery-3.3.1.js" %}"></script>
   {%load static%}
   <script src="{% static "js/jquery.dataTables.min.js" %}"></script>
   {%load static%}

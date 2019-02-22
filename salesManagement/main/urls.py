@@ -1,12 +1,12 @@
 from django.urls import path, include
 from . import views
-from .viewset import commissionViewSet,productViewSet,batchViewSet,salesViewSet
+from .viewset import feeprogViewSet,productViewSet,batchViewSet,salesViewSet
 from rest_framework import routers
 from django.conf import settings
 from django.conf.urls.static import static
 
 router=routers.DefaultRouter()
-router.register(r'commissionVS',commissionViewSet)
+router.register(r'feeprogVS',feeprogViewSet)
 router.register(r'productVS',productViewSet)
 router.register(r'batchVS',batchViewSet)
 router.register(r'salesVS',salesViewSet)
