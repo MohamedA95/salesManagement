@@ -20,6 +20,7 @@ class feeprog(models.Model):
 
 class product(models.Model):
     name=models.CharField(primary_key=True,max_length=100,default='',null=False,unique=True, blank=False)
+    product_type=models.CharField(primary_key=False,max_length=100,default='',null=True,unique=False, blank=True)
     rimage=models.CharField(max_length=1000,default='',blank=True,null=True)
     image=models.ImageField(upload_to=filename_generator,blank=True,null=True,default='')
     description=models.CharField(max_length=1000,default='',blank=True,null=True)
