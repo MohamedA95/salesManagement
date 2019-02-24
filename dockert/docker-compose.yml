@@ -9,10 +9,10 @@ services:
     depends_on:
       - salesmanagementDB 
     env_file:
-      - config/envVars.env
+      - .env
     volumes: 
-      - static_volume: ${DJANGOSTATICROOT}
-      - media_volume: ${DJANGOMEDIAROOT}
+      - static_volume:${DJANGOSTATICROOT}
+      - media_volume:${DJANGOMEDIAROOT}
     restart: always
    
   nginx:
@@ -21,8 +21,8 @@ services:
       - 80:80
     volumes:
       - ./config/nginx/conf.d:/etc/nginx/conf.d
-      - static_volume: ${DJANGOSTATICROOT}
-      - media_volume: ${DJANGOMEDIAROOT}
+      - static_volume:${DJANGOSTATICROOT}
+      - media_volume:${DJANGOMEDIAROOT}
     depends_on: 
       - djangoapp
     networks:
@@ -32,7 +32,7 @@ services:
   salesmanagementDB:
     image: postgres:11.1
     env_file:
-        - config/envVars.env
+        - .env
     networks:
         - salesmanagementDB_network
     volumes:
