@@ -7,9 +7,9 @@ services:
       - salesmanagementDB_network
       - nginx_network
     depends_on:
-      - salesmanagementDB 
+      - database1 
     env_file:
-      - .env
+      - config/vars.env
     volumes: 
       - static_volume:${DJANGOSTATICROOT}
       - media_volume:${DJANGOMEDIAROOT}
@@ -29,10 +29,10 @@ services:
       - nginx_network
     restart: always
 
-  salesmanagementDB:
-    image: postgres:11.1
+  database1:
+    image: postgres
     env_file:
-        - .env
+        - config/vars.env
     networks:
         - salesmanagementDB_network
     volumes:
