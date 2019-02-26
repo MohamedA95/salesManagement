@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('djsecret','=9eid=l%3vrw!1e!6gthq=@n)0k)6ybnatlzd-ou
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG',False)
 
-ALLOWED_HOSTS = ["nginx"]
+ALLOWED_HOSTS = ["10.85.97.144"]
 
 
 # Application definition
