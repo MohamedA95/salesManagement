@@ -20,7 +20,7 @@ class feeprog(models.Model):
 
 class product(models.Model):
     name=models.CharField(primary_key=True,max_length=100,default='',null=False,unique=True, blank=False)
-    product_type=models.CharField(primary_key=False,max_length=100,default='',null=True,unique=False, blank=True)
+    product_type=models.CharField(max_length=100,default='',null=True,unique=False, blank=True)
     rimage=models.CharField(max_length=1000,default='',blank=True,null=True)
     image=models.ImageField(upload_to=filename_generator,blank=True,null=True,default='')
     description=models.CharField(max_length=1000,default='',blank=True,null=True)
@@ -49,4 +49,5 @@ class sales(models.Model):
     unitprofit=models.FloatField(default=0.0)
     profitpercent=models.FloatField(default=0.0)
     totalprofit=models.FloatField(default=0.0)
+    profit=models.FloatField(default=0.0)
     date=models.DateField(auto_now=True)
