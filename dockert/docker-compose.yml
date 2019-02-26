@@ -9,7 +9,7 @@ services:
     depends_on:
       - database1 
     env_file:
-      - config/vars.env
+      - .env
     volumes: 
       - static_volume:${DJANGOSTATICROOT}
       - media_volume:${DJANGOMEDIAROOT}
@@ -31,8 +31,11 @@ services:
 
   database1:
     image: postgres
-    env_file:
-        - config/vars.env
+    environment:
+        POSTGRES_USER: ${POSTGRES_USER}
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+        - "5432:5432"
     networks:
         - salesmanagementDB_network
     volumes:
