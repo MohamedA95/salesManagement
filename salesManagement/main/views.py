@@ -115,11 +115,11 @@ def calc(request):
         form=calcform(request.POST)
         if form.is_valid() :
             product_type = form.cleaned_data['product_type']
-            add = getattr(commission.objects.get(product_type__exact=product_type), 'addfee')
-            multiply = getattr(commission.objects.get(product_type__exact=product_type), 'multiplyfee')
+            add = getattr(feeprog.objects.get(name__exact=batchObj.feeprog), 'addfee')
+            multiply = getattr(feeprog.objects.get(name__exact=batchObj.feeprog), 'mulfee')/100
             exrate = getattr(currency.objects.get(name__exact=form.cleaned_data['currency']), 'exrate')
             localprice=form.cleaned_data['local_price']
             onlineprice=float(form.cleaned_data['unit_cost'])*exrate
             minselling = add+onlineprice/(1-multiply)
-            messages.info(request, "Min selling price is "+str(minselling)+" The diff is "+str(localprice-minselling))
+            messages.info(request, "Min selling price is "+str(minselling)+" The diff between Min selling and Local price is "+str(localprice-minselling))
     return render(request, 'calc.html', {'form': calcform})
