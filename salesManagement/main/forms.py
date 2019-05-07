@@ -33,7 +33,7 @@ class salesform(forms.Form):
     batchid=forms.ModelChoiceField(queryset=batch.objects.filter(quant__gt=0), empty_label=None,label="Batch ID")
 
 class calcform(forms.Form):
-    product_type = forms.ModelChoiceField(queryset=feeprog.objects.all(), empty_label=None,label="Fee Prog")
+    feeprog = forms.ModelChoiceField(queryset=feeprog.objects.all(), empty_label=None,label="Fee Prog")
     currency = forms.ModelChoiceField(queryset=currency.objects.all(), empty_label=None,label="Currency",help_text='used to buy the product')
     unit_cost = forms.FloatField(validators=[MinValueValidator(1)],label="Unit Cost",help_text='In the chosen currency')
     local_price=forms.FloatField(validators=[MinValueValidator(0)],label="Unit Cost in local market")

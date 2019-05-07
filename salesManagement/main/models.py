@@ -4,8 +4,8 @@ from django.db.models.signals import post_save
 from django.conf import settings
 # Create your models here.
 def filename_generator(pro, _):
-    filename = "{}.{}".format(pro.name,str(pro.image).split('.')[-1])
-    return 'ProductsImages/'+filename
+    return "{}.{}".format(pro.name,str(pro.image).split('.')[-1])
+     
 class currency(models.Model):
     name=models.CharField(primary_key=True,max_length=100,default='USD')
     exrate=models.FloatField(blank=False,null=False,default=3.75)

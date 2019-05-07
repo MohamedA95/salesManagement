@@ -5,7 +5,6 @@ from django.contrib import messages
 from .models import  batch, currency,sales,product,feeprog
 from django.conf import settings
 
-# Create your views here.
 
 
 def addpro(request):
@@ -14,9 +13,9 @@ def addpro(request):
         if form.is_valid():
             proObj=product()
             proObj.name=form.cleaned_data['name']
-            if(len(request.FILES)>0):
+            if(request.FILES):
                 proObj.image=request.FILES['image']
-                proObj.rimage="<img height='20%' width='100%' src='"+request.build_absolute_uri('/')+"media/ProductsImages/"+proObj.name+'.'+str(proObj.image).split('.')[-1]+"'/>"
+                proObj.rimage="<img height='20%' width='100%' src='/media/"+"{}.{}".format(proObj.name,str(proObj.image).split('.')[-1])+"'/>"
             else:
                 proObj.image=None
                 proObj.rimage=''
@@ -114,9 +113,9 @@ def calc(request):
     if request.method=="POST":
         form=calcform(request.POST)
         if form.is_valid() :
-            product_type = form.cleaned_data['product_type']
-            add = getattr(feeprog.objects.get(name__exact=batchObj.feeprog), 'addfee')
-            multiply = getattr(feeprog.objects.get(name__exact=batchObj.feeprog), 'mulfee')/100
+            fee_prog = feeprog.objects.get(name__exact=form.cleaned_data['feeprog'])
+            add = getattr(fee_prog, 'addfee')
+            multiply = getattr(fee_prog, 'mulfee')/100
             exrate = getattr(currency.objects.get(name__exact=form.cleaned_data['currency']), 'exrate')
             localprice=form.cleaned_data['local_price']
             onlineprice=float(form.cleaned_data['unit_cost'])*exrate

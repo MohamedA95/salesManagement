@@ -8,6 +8,7 @@ class productSerliz(serializers.ModelSerializer):
 class batchSerliz(serializers.ModelSerializer):
     class Meta:
         model=batch
+        lookup_field='batchid'
         fields=('product_type','unit_price','quant','batchid','minselling','total_cost','profit10','feeprog')
 
 class salesSerliz(serializers.ModelSerializer):

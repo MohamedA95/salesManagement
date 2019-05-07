@@ -12,76 +12,47 @@
 
 
     });
-  </script> {%endblock%}
+  </script>
+  <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
+  <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css"> {%endblock%}
 
 </head>
 
 <body>
   {%block body%}
-  <div class="container">
-    <h3>Batches Report</h3>
+  <h3>Batches Report</h3>
+  <button onclick="DeleteBatch()">Delete Batch</button>
+  <span></span>
+  <div id="myGrid" style="max-height:100%;max-width: 100%;height:900px;" class="ag-theme-balham"></div>
+  <script type="text/javascript" charset="utf-8">
+    // specify the columns
+    var columnDefs = [
+      { headerName: "Product Type", field: "product_type", sortable: true, filter: true,checkboxSelection: true },
+      { headerName: "Unit Price", field: "unit_price", sortable: true, filter: true},
+      { headerName: "Quantity", field: "quant", sortable: true, filter: true },
+      { headerName: "Batch ID", field: "batchid", sortable: true, filter: true },
+      { headerName: "Stock Cost", field: "total_cost", sortable: true, filter: true },
+      { headerName: "Min selling price", field: "minselling", sortable: true, filter: true },
+      { headerName: "Selling price W/ 10% profit", field: "profit10", sortable: true, filter: true },
+      { headerName: "Fee Prog", field:"feeprog", sortable: true, filter: true }];
 
-    <div class="row">
-      <div class="col-sm-12">
-        <table id="table" class="table table-striped table-bordered" style="width:100%" data-server-side="true"
-          data-ajax="/api/batchVS/?format=datatables">
-          <thead>
-            <tr>
-              <th data-data="product_type">Product Type</th>
-              <th data-data="unit_price">Unit Price</th>
-              <th data-data="quant">Quantity</th>
-              <th data-data="batchid">Batch ID</th>
-              <th data-data="total_cost">Stock Cost</th>
-              <th data-data="minselling">Min selling price</th>
-              <th data-data="profit10">Selling price W/ 10% profit</th>
-            </tr>
-          </thead>
-          <tfoot>
-            <tr>
-              <th style="text-align:Left">Total</th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-    </div>
-  </div>
-  {%load static%}
-  <script src="{% static "js/jquery.dataTables.min.js" %}"></script>
-  {%load static%}
-  <script src="{% static "js/dataTables.bootstrap4.min.js" %}"></script>
-  <script>
-    $(document).ready(function () {
-      $('#table').DataTable({
-        "footerCallback": function (row, data, start, end, display) {
-          var api = this.api(), data;
-          // Remove the formatting to get integer data for summation
-          var intVal = function (i) {
-            return typeof i === 'string' ?
-              i.replace(/[\$,]/g, '') * 1 :
-              typeof i === 'number' ?
-                i : 0;
-          };
-          var coltosum = [2, 4]
-          for (c in coltosum) {
-            coltosum[c]// Total over all pages
-            {% comment %} total = api.column(coltosum[c]).data().reduce(function (a, b) { return intVal(a) + intVal(b); }, 0); {% endcomment %}
-            // Total over this page
-            pageTotal = api.column(coltosum[c], { page: 'current' }).data().reduce(function (a, b) { return intVal(a) + intVal(b); }, 0);
-            // Update footer
-            $(api.column(coltosum[c]).footer()).html(pageTotal);
-          }
-        }
-      });
-    });
-
+    // let the grid know which columns and what data to use
+    var gridOptions = { columnDefs: columnDefs,  rowSelection: 'multiple' };
+    // create the grid passing in the div to use together with the columns & data we want to use
+    new agGrid.Grid(document.querySelector('#myGrid'), gridOptions);
+    fetch('/api/batchVS/').then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      gridOptions.api.setRowData(data["results"]);
+    })
+    function DeleteBatch() {
+    var selectedNodes = gridOptions.api.getSelectedNodes()  
+    var selectedData = selectedNodes.map( function(node) { return node.data })
+    var batchid = selectedData.map( function(node) { return node.batchid }).join(',')
+    console.log(fetch('/api/batchVS/' + batchid+'/', {method: 'delete'}).then(response => response.json()));
+}
   </script>
-
 
   {%endblock%}
 </body>
