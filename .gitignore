@@ -4,6 +4,6 @@ db.sqlite3
 salesManagement/main/__pycache__
 salesManagement/db.sqlite3
 salesManagement/salesManagement/__pycache__
+salesManagement/salesManagement/migrations
 salesManagement/main/__pycache__
-salesManagement/main/migrations/__pycache__
-salesManagement/salesManagement/__pycache__
+salesManagement/main/migrations

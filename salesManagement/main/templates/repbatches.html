@@ -1,4 +1,4 @@
-{%extends 'base.html'%}
+{%extends 'repbase.html'%}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,23 +9,20 @@
     $('document').ready(function () {
       $('.nav-item').find('li.active').removeClass('active');
       $('#batches').addClass('active');
-
-
     });
-  </script>
-  <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
-  <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css"> {%endblock%}
+
+</script>
+  {%endblock%}
 
 </head>
 
 <body>
   {%block body%}
-  <h3>Batches Report</h3>
+  <h3 class="titels">Batches Report</h3>
   <button onclick="DeleteBatch()">Delete Batch</button>
-  <span></span>
-  <div id="myGrid" style="max-height:100%;max-width: 100%;height:900px;" class="ag-theme-balham"></div>
+  <div id="myGrid" class="ag-theme-balham gridclass"></div>
   <script type="text/javascript" charset="utf-8">
+
     // specify the columns
     var columnDefs = [
       { headerName: "Product Type", field: "product_type", sortable: true, filter: true,checkboxSelection: true },
@@ -41,16 +38,20 @@
     var gridOptions = { columnDefs: columnDefs,  rowSelection: 'multiple' };
     // create the grid passing in the div to use together with the columns & data we want to use
     new agGrid.Grid(document.querySelector('#myGrid'), gridOptions);
-    fetch('/api/batchVS/').then(function (response) {
-      return response.json();
-    }).then(function (data) {
-      gridOptions.api.setRowData(data["results"]);
-    })
+    fetch('/api/batchVS/').then(function (response) {return response.json();}).then(function (data) {gridOptions.api.setRowData(data["results"]);})
+    
     function DeleteBatch() {
+      $.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
+    }
+});
     var selectedNodes = gridOptions.api.getSelectedNodes()  
     var selectedData = selectedNodes.map( function(node) { return node.data })
     var batchid = selectedData.map( function(node) { return node.batchid }).join(',')
-    console.log(fetch('/api/batchVS/' + batchid+'/', {method: 'delete'}).then(response => response.json()));
+    $.ajax({type: "DELETE",url: '/api/batchVS/' + batchid+'/'});
 }
   </script>
 

@@ -1,6 +1,6 @@
 from django.urls import path, include
 from . import views
-from .viewset import feeprogViewSet,productViewSet,batchViewSet,salesViewSet
+from .viewset import feeprogViewSet,productViewSet,batchViewSet,salesViewSet,salesCustom
 from rest_framework import routers
 from django.conf import settings
 from django.conf.urls.static import static
@@ -21,7 +21,9 @@ urlpatterns = [
     path('home', views.home),
     path('calc',views.calc),
     path('',views.login),
+    path('api/salescustom/<str:orderid>/',salesCustom.as_view()),
     path('api/',include(router.urls)),
+
     
 ]
 

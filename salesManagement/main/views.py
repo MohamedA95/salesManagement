@@ -1,12 +1,11 @@
-from django.shortcuts import render
-from django.shortcuts import redirect
-from .forms import productform, batchform, salesform,calcform
+from django.shortcuts import render,redirect
 from django.contrib import messages
-from .models import  batch, currency,sales,product,feeprog
 from django.conf import settings
-
-
-
+from django.http import Http404
+from .forms import productform, batchform, salesform,calcform
+from .models import  batch, currency,sales,product,feeprog
+from .serializer import productSerliz,batchSerliz,salesSerliz,feeprogSerliz
+from . import utility
 def addpro(request):
     if request.method == "POST":
         form = productform(request.POST,request.FILES)
@@ -37,6 +36,7 @@ def rmit(request):
             salesObj.saleprice=form.cleaned_data['saleprice']
             salesObj.batchid=form.cleaned_data['batchid']
             salesObj.unitprofit=form.cleaned_data['batchid']
+            salesObj.orderid=form.cleaned_data['orderid']
             batchObj = batch.objects.get(batchid__exact=salesObj.batchid)
             if(salesObj.product_type != getattr(batchObj, 'product_type')):
                 messages.error(request, "The product is not in this batch, please choose the correct batch!")
@@ -80,12 +80,10 @@ def addit(request):
             batchObj.unit_price=form.cleaned_data['total_cost']/batchObj.quant
             batchObj.batchid=form.cleaned_data['batchid']
             exrate = getattr(currency.objects.get(name__exact=batchObj.currency), 'exrate')
-            add = getattr(feeprog.objects.get(name__exact=batchObj.feeprog), 'addfee')
-            multiply = getattr(feeprog.objects.get(name__exact=batchObj.feeprog), 'mulfee')/100
             batchObj.unit_price *= exrate
             batchObj.total_cost=form.cleaned_data['total_cost']*exrate
-            batchObj.minselling = (add+float(batchObj.unit_price))/(1-multiply)
-            batchObj.profit10 = (add+float(batchObj.unit_price))/(1-multiply-0.1)
+            batchObj.minselling = utility.calMinSelling(batchObj.unit_price,batchObj.feeprog)
+            batchObj.profit10 = utility.calProfitPercent(batchObj.unit_price,batchObj.feeprog,0.1)
             batchObj.save()
             product.objects.filter(name__exact=form.cleaned_data['product_type']).update(avalible=True)
             messages.info(request, "Item added successfully!")

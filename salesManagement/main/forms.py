@@ -31,6 +31,7 @@ class salesform(forms.Form):
     quant=forms.IntegerField(validators=[MinValueValidator(1)],label="Quantity")
     saleprice=forms.FloatField(validators=[MinValueValidator(0)],label="Revenue",help_text='per unit')
     batchid=forms.ModelChoiceField(queryset=batch.objects.filter(quant__gt=0), empty_label=None,label="Batch ID")
+    orderid=forms.CharField(label="Order ID",help_text='Uniqe ID for this order')
 
 class calcform(forms.Form):
     feeprog = forms.ModelChoiceField(queryset=feeprog.objects.all(), empty_label=None,label="Fee Prog")

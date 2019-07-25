@@ -51,3 +51,4 @@ class sales(models.Model):
     totalprofit=models.FloatField(default=0.0)
     profit=models.FloatField(default=0.0)
     date=models.DateField(auto_now=True)
+    orderid=models.CharField(max_length=200,default='',blank=True,null=True,unique=True)

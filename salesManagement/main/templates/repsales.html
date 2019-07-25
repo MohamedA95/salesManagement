@@ -1,89 +1,56 @@
-{%extends 'base.html'%}
-
+{%extends 'repbase.html'%}
 <!DOCTYPE html>
 <html lang="en">
 
 <head> {%block head%}
-
     <title>Sales</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script>
         $('document').ready(function () {
             $('.nav-item').find('li.active').removeClass('active');
             $('#sales').addClass('active');
-
-
         });
     </script>
     {%endblock%}
-
 </head>
 
 <body>
     {%block body%}
-    <div class="container">
-        <h3>Sales Report</h3>
-
-        <div class="row">
-            <div class="col-sm-12">
-                <table id="table" class="table table-striped table-bordered" style="width:100%" data-server-side="true"
-                    data-ajax="/api/salesVS/?format=datatables">
-                    <thead>
-                        <tr>
-                            <th data-data="product_type">Product Type</th>
-                            <th data-data="quant">Quantity</th>
-                            <th data-data="saleprice">Sale Price</th>
-                            <th data-data="unitprofit">Unit Profit</th>
-                            <th data-data="profitpercent">Unit Profit %</th>
-                            <th data-data="totalprofit">Total Profit</th>
-                            <th data-data="date">Date</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th style="text-align:Left">Total</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
-                </table>
-
-            </div>
-        </div>
-    </div>
-    {%load static%}
-    <script src="{% static "js/jquery.dataTables.min.js" %}"></script>
-    {%load static%}
-    <script src="{% static "js/dataTables.bootstrap4.min.js" %}"></script>
+    <h3 class="titels">Sales Report</h3>
+    <button onclick="Deletesales()">Delete Sale</button>
+    <div id="myGrid" class="ag-theme-balham gridclass"></div>
     <script>
-        $(document).ready(function () {
-            $('#table').DataTable({
-                "footerCallback": function (row, data, start, end, display) {
-                    var api = this.api(), data;
-                    // Remove the formatting to get integer data for summation
-                    var intVal = function (i) {
-                        return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
-                    };
-                    var coltosum = [1, 5]
-                    for (c in coltosum) {
-                        // Total over all pages
-                        total = api.column(coltosum[c]).data().reduce(function (a, b) { return intVal(a) + intVal(b); }, 0);
-                        // Total over this page
-                        pageTotal = api.column(coltosum[c], { page: 'current' }).data().reduce(function (a, b) { return intVal(a) + intVal(b); }, 0);
-                        // Update footer
-                        $(api.column(coltosum[c]).footer()).html(pageTotal + '(' + total + ')');
+        // specify the columns
+        var columnDefs = [
+            { headerName: "Product Type", field: "product_type", sortable: true, filter: true, checkboxSelection: true },
+            { headerName: "Quantity", field: "quant", sortable: true, filter: true },
+            { headerName: "Sale Price", field: "saleprice", sortable: true, filter: true },
+            { headerName: "Unit Profit", field: "unitprofit", sortable: true, filter: true },
+            { headerName: "Unit Profit %", field: "profitpercent", sortable: true, filter: true },
+            { headerName: "Total Profit", field: "totalprofit", sortable: true, filter: true },
+            { headerName: "Order ID", field: "orderid", sortable: true, filter: true },
+            { headerName: "Date", field: "date", sortable: true, filter: true },
+            { headerName: "Batch ID", field: "batchid", filter: true }];
+        // let the grid know which columns and what data to use
+        var gridOptions = { columnDefs: columnDefs, rowSelection: 'multiple' };
+        // create the grid passing in the div to use together with the columns & data we want to use
+        new agGrid.Grid(document.querySelector('#myGrid'), gridOptions);
+        fetch('/api/salesVS/').then(function (response) { return response.json(); }).then(function (data) { gridOptions.api.setRowData(data["results"]); })
+        function Deletesales() {
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
                     }
                 }
             });
-        });
-
+            var selectedNodes = gridOptions.api.getSelectedNodes()
+            var selectedData = selectedNodes.map(function (node) { return node.data })
+            var orderid = selectedData.map(function (node) { return node.orderid }).join(',')
+            $.ajax({ type: "DELETE", url: '/api/salescustom/' + orderid + '/' });
+        }
     </script>
-
     {%endblock%}
 </body>
 
