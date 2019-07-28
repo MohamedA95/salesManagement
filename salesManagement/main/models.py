@@ -40,6 +40,8 @@ class batch(models.Model):
     feeprog=models.ForeignKey(feeprog,on_delete=models.SET_NULL,null=True)
     def __str__(self):
        return self.batchid
+    class Meta:
+        ordering=['quant']
 
 class sales(models.Model):
     product_type=models.ForeignKey(product,on_delete=models.SET_NULL,null=True,default='')

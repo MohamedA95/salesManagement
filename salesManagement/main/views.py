@@ -35,7 +35,6 @@ def rmit(request):
             salesObj.quant=form.cleaned_data['quant']
             salesObj.saleprice=form.cleaned_data['saleprice']
             salesObj.batchid=form.cleaned_data['batchid']
-            salesObj.unitprofit=form.cleaned_data['batchid']
             salesObj.orderid=form.cleaned_data['orderid']
             batchObj = batch.objects.get(batchid__exact=salesObj.batchid)
             if(salesObj.product_type != getattr(batchObj, 'product_type')):
@@ -120,3 +119,13 @@ def calc(request):
             minselling = add+onlineprice/(1-multiply)
             messages.info(request, "Min selling price is "+str(minselling)+" The diff between Min selling and Local price is "+str(localprice-minselling))
     return render(request, 'calc.html', {'form': calcform})
+
+def getBatchesForProduct(request,product):
+    print("product")
+    print(product)    
+    batches=batch.objects.filter(product_type__exact=product)
+    print("product")
+    print(product)
+    print("batches")
+    print(batches)
+    return render(request,'batchesforproduct.html',{'batches':batches})

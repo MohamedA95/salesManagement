@@ -80,11 +80,13 @@ class salesCustom(APIView):
             batchObj=batch.objects.get(batchid__exact=salesObj.batchid)
             batchObj.quant=batchObj.quant+1
             batchObj.total_cost=batchObj.total_cost+batchObj.unit_price
+            batchObj.save()
         except:
             batchObj=batch()
             batchObj.product_type=salesObj.product_type
-            batchObj.quant=1
-            batchObj.batchid=salesObj.batchid
-            # batchObj.minselling=
+            batchObj.quant=salesObj.quant
+            batchObj.batchid=salesObj.product_type+"return"
+            batchObj.unit_price=salesObj.saleprice-salesObj.unitprofit
+            batchObj.minselling=utility.calMinSelling(batchObj.unit_price,)
         print(batchObj.minselling)
         return Response(status=status.HTTP_204_NO_CONTENT)

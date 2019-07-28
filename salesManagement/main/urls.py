@@ -23,6 +23,7 @@ urlpatterns = [
     path('',views.login),
     path('api/salescustom/<str:orderid>/',salesCustom.as_view()),
     path('api/',include(router.urls)),
+    path('ajax/productbatches/<str:product>/',views.getBatchesForProduct)
 
     
 ]
