@@ -2,21 +2,16 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head> {%block head%}
-    <title>Remove Item</title>
-    <script>
-        $('document').ready(function () {
-            $('.nav-item').find('li.active').removeClass('active');
-            $('#ritem').addClass('active');
-        });
-    </script> {%endblock%}
+<head>
+    {%block head%}<title>Remove Item</title>{%endblock%}
 </head>
 
 <body>
     {%block body%}
     {% if messages %}
     {% for message in messages %}
-    <li {% if message.tags == 'error' %} class=" alert alert-danger" {% elif message.tags == 'info' %} class="alert alert-info" {% endif %}>{{ message }}</li>
+    <li {% if message.tags == 'error' %} class=" alert alert-danger" {% elif message.tags == 'info' %}
+        class="alert alert-info" {% endif %}>{{ message }}</li>
 
     {% endfor %}
     {% endif %}
@@ -27,6 +22,22 @@
             <button type="submit" class="save btn btn-default">Save</button>
         </form>
     </div>
+    <script>
+        $('document').ready(function () {
+            $('.nav-item').find('li.active').removeClass('active');
+            $('#ritem').addClass('active');
+        });
+        $("#id_product_type").change(function () {
+            var pro=$("#id_product_type").val();
+             $.ajax({
+                 url: "/ajax/productbatches/"+pro,
+                 type: "GET",
+                 success: function(data){
+                     $("#id_batchid").html(data);
+                 }
+             });
+             });
+    </script>
     {%endblock%}
 </body>
 

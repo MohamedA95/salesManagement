@@ -4,12 +4,18 @@
 
 <head> {%block head%}
     <title>Sales</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script>
         $('document').ready(function () {
             $('.nav-item').find('li.active').removeClass('active');
             $('#sales').addClass('active');
+            $.ajax({
+                 url: "/api/feeprogVS/",
+                 type: "GET",
+                 success: function(data){
+                     data['results'].forEach(el => {$('#feeProgSelect').append("<option value='"+el['name']+"'>"+el['name']+"</option>");});
+                 }
+             });
         });
     </script>
     {%endblock%}
@@ -19,6 +25,7 @@
     {%block body%}
     <h3 class="titels">Sales Report</h3>
     <button onclick="Deletesales()">Delete Sale</button>
+    <select id="feeProgSelect"></select>
     <div id="myGrid" class="ag-theme-balham gridclass"></div>
     <script>
         // specify the columns
@@ -36,7 +43,7 @@
         var gridOptions = { columnDefs: columnDefs, rowSelection: 'multiple' };
         // create the grid passing in the div to use together with the columns & data we want to use
         new agGrid.Grid(document.querySelector('#myGrid'), gridOptions);
-        fetch('/api/salesVS/').then(function (response) { return response.json(); }).then(function (data) { gridOptions.api.setRowData(data["results"]); })
+        $.ajax({url: "/api/salesVS/",type: "GET",success: function(data){gridOptions.api.setRowData(data["results"]);}});
         function Deletesales() {
             $.ajaxSetup({
                 beforeSend: function (xhr, settings) {
@@ -48,7 +55,7 @@
             var selectedNodes = gridOptions.api.getSelectedNodes()
             var selectedData = selectedNodes.map(function (node) { return node.data })
             var orderid = selectedData.map(function (node) { return node.orderid }).join(',')
-            $.ajax({ type: "DELETE", url: '/api/salescustom/' + orderid + '/' });
+            $.ajax({ type: "DELETE", url: '/api/salescustom/' + orderid + '/', headers: {'feeprog': $('#feeProgSelect').val()}});
         }
     </script>
     {%endblock%}

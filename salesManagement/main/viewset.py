@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 from .serializer import productSerliz, batchSerliz, salesSerliz, feeprogSerliz
-from .models import feeprog, product, batch, sales
+from .models import feeprog, product, batch, sales, currency
 from rest_framework import viewsets, status, permissions
 from django.http import Http404
 from rest_framework.views import APIView
@@ -68,14 +68,14 @@ class salesCustom(APIView):
     #     return Response(serializer.data)
 
     def delete(self, request, orderid):
-        print(orderid)
+        # print(orderid)
         salesObj = get_object_or_404(sales, orderid=orderid)
-        print(salesObj.product_type)
-        print(salesObj.quant)
-        print(salesObj.saleprice)
-        print(salesObj.batchid)
-        print(salesObj.unitprofit)
-        print(salesObj.orderid)
+        # print(salesObj.product_type)
+        # print(salesObj.quant)
+        # print(salesObj.saleprice)
+        # print(salesObj.batchid)
+        # print(salesObj.unitprofit)
+        # print(salesObj.orderid)
         try:
             batchObj=batch.objects.get(batchid__exact=salesObj.batchid)
             batchObj.quant=batchObj.quant+1
@@ -85,8 +85,13 @@ class salesCustom(APIView):
             batchObj=batch()
             batchObj.product_type=salesObj.product_type
             batchObj.quant=salesObj.quant
-            batchObj.batchid=salesObj.product_type+"return"
+            batchObj.batchid=str(salesObj.product_type)+"return"
             batchObj.unit_price=salesObj.saleprice-salesObj.unitprofit
-            batchObj.minselling=utility.calMinSelling(batchObj.unit_price,)
-        print(batchObj.minselling)
+            batchObj.minselling=utility.calMinSelling(batchObj.unit_price,request.META["HTTP_FEEPROG"])
+            batchObj.currency=currency.objects.get(name__exact='SAR')
+            batchObj.total_cost=batchObj.unit_price*batchObj.quant
+            batchObj.profit10=utility.calProfitPercent(batchObj.unit_price,request.META["HTTP_FEEPROG"],0.1)
+            batchObj.save()
+        salesObj.delete()
+        # print(batchObj.minselling)
         return Response(status=status.HTTP_204_NO_CONTENT)

@@ -121,11 +121,5 @@ def calc(request):
     return render(request, 'calc.html', {'form': calcform})
 
 def getBatchesForProduct(request,product):
-    print("product")
-    print(product)    
     batches=batch.objects.filter(product_type__exact=product)
-    print("product")
-    print(product)
-    print("batches")
-    print(batches)
     return render(request,'batchesforproduct.html',{'batches':batches})
