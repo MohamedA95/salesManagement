@@ -1,10 +1,11 @@
 {%extends 'base.html'%}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head> {%block head%}
-    <title>Calcultate Profit</title> {%endblock%}
+    <title>{% trans "Calcultate Profit" %}</title> {%endblock%}
 </head>
 
 <body>
@@ -14,11 +15,12 @@
     <li {% if message.tags == 'error' %} class=" alert alert-danger" {% elif message.tags == 'info' %} class="alert alert-info" {% endif %}>{{ message }}</li>
     {% endfor %}
     {% endif %}
+
     <div class="container">
         <form method="POST" class="post-form">
             {% csrf_token %}
             {{form.as_p}}
-            <button type="submit" class="save btn btn-default">Calcultate</button>
+            <button type="submit" class="save btn btn-default">{% trans "Calcultate" %}</button>
         </form>
     </div>
     {%endblock%}

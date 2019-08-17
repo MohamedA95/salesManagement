@@ -1,0 +1,58 @@
+{%extends 'repbase.html'%}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head> {%block head%}
+    <title>{% trans "Sales" %}</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script>
+        $('document').ready(function () {
+            $('.nav-item').find('li.active').removeClass('active');
+            $('#statistics').addClass('active');
+        });
+    </script>
+    {%endblock%}
+</head>
+
+<body>
+    {%block body%}
+    <h3 class="titels">{% trans 'statistics' %}</h3>
+    <div id="myGrid" class="ag-theme-balham gridclass"></div>
+    <br>
+    <span>{% trans 'To cahnge Company Capital fill in the new value and click the button' %}</span>
+    <br>
+    <button onclick="editCompanyCapital()">{% trans 'Edit Company Capital' %}</button>
+    <br>
+    <br>
+    <sapn>{% trans  'Company Capital'%}</sapn>
+    <input type="text" id='CompanyCapitalInput'>
+    <br>   
+    <script>
+        // specify the columns
+        var columnDefs = [
+            { headerName: {% trans "'Name'" %}, field: "name"},
+            { headerName: {% trans "'Value'" %}, field: "value"}];
+        // let the grid know which columns and what data to use
+        var gridOptions = { columnDefs: columnDefs, rowSelection: 'multiple' };
+        // create the grid passing in the div to use together with the columns & data we want to use
+        new agGrid.Grid(document.querySelector('#myGrid'), gridOptions);
+        $.ajax({url: "/api/statisticsVS/",type: "GET",success: function(data){gridOptions.api.setRowData(data["results"]);}});
+        
+        function editCompanyCapital() {
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                    }
+                }
+            });
+            console.log($('#CompanyCapitalInput').val());
+            $.ajax({ type: "POST", url: '/api/editCompanyCapital/', headers: {'newval': $('#CompanyCapitalInput').val()}});
+        }
+    </script>
+    {%endblock%}
+</body>
+
+</html>

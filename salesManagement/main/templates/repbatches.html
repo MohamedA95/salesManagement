@@ -1,10 +1,11 @@
 {%extends 'repbase.html'%}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head> {%block head%}
-  <title>Batches</title>
+  <title>{% trans "Batches" %}</title>
   <script>
     $('document').ready(function () {
       $('.nav-item').find('li.active').removeClass('active');
@@ -18,24 +19,29 @@
 
 <body>
   {%block body%}
-  <h3 class="titels">Batches Report</h3>
-  <button onclick="DeleteBatch()">Delete Batch</button>
+  <h3 class="titels">{% trans "Batches Report" %}</h3>
+  <button onclick="DeleteBatch()">{% trans "Delete Batch" %}</button>
   <div id="myGrid" class="ag-theme-balham gridclass"></div>
   <script type="text/javascript" charset="utf-8">
-
-    // specify the columns
+      // specify the columns
     var columnDefs = [
-      { headerName: "Product Type", field: "product_type", sortable: true, filter: true,checkboxSelection: true },
-      { headerName: "Unit Price", field: "unit_price", sortable: true, filter: true},
-      { headerName: "Quantity", field: "quant", sortable: true, filter: true },
-      { headerName: "Batch ID", field: "batchid", sortable: true, filter: true },
-      { headerName: "Stock Cost", field: "total_cost", sortable: true, filter: true },
-      { headerName: "Min selling price", field: "minselling", sortable: true, filter: true },
-      { headerName: "Selling price W/ 10% profit", field: "profit10", sortable: true, filter: true },
-      { headerName: "Fee Prog", field:"feeprog", sortable: true, filter: true }];
+      { headerName: {% trans "'Product Type'" %}, field: "product_type", sortable: true, filter: true,checkboxSelection: true },
+      { headerName: {% trans "'Unit Price'" %}, field: "unit_price", sortable: true, filter: true},
+      { headerName: {% trans "'Quantity'" %}, field: "quant", sortable: true, filter: true },
+      { headerName: {% trans "'Batch ID'" %}, field: "batchid", sortable: true, filter: true },
+      { headerName: {% trans "'Stock Cost'" %}, field: "total_cost", sortable: true, filter: true },
+      { headerName: {% trans "'Min selling price'" %}, field: "minselling", sortable: true, filter: true },
+      { headerName: {% trans "'Selling price W/ 10% profit'" %}, field: "profit10", sortable: true, filter: true },
+      { headerName: {% trans "'Fee Prog'" %}, field:"feeprog", sortable: true, filter: true },
+      { headerName: {% trans "'Status'" %}, field:"status", sortable: true, filter: true,editable:true, cellEditor: 'agSelectCellEditor', cellEditorParams: {values: {{batchStatus|safe}} },onCellValueChanged(data){changeShipmentState(data);} },
+      { headerName: {% trans "'Addition Date'" %}, field:"date", sortable: true, filter: true }];
+
 
     // let the grid know which columns and what data to use
-    var gridOptions = { columnDefs: columnDefs,  rowSelection: 'multiple' };
+    var gridOptions = { columnDefs: columnDefs,  rowSelection: 'multiple', 
+    onCellEditingStopped: function(event) {
+        console.log('cellEditingStopped');
+    }};
     // create the grid passing in the div to use together with the columns & data we want to use
     new agGrid.Grid(document.querySelector('#myGrid'), gridOptions);
     fetch('/api/batchVS/').then(function (response) {return response.json();}).then(function (data) {gridOptions.api.setRowData(data["results"]);})

@@ -1,9 +1,11 @@
 {%extends 'repbase.html'%}
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head> {%block head%}
-    <title>Sales</title>
+    <title>{% trans "Sales" %}</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script>
         $('document').ready(function () {
@@ -23,22 +25,25 @@
 
 <body>
     {%block body%}
-    <h3 class="titels">Sales Report</h3>
-    <button onclick="Deletesales()">Delete Sale</button>
+    <h3 class="titels">{% trans 'Sales Report' %}</h3>
+    <span>{% trans 'To delete a sales order, choose and and choose the fee program, then click Delete.' %}</span>
+    <br>
+    <button onclick="Deletesales()">{% trans 'Delete Sale' %}</button>
+    <br><br><sapn>{% trans  'Fee program'%}</sapn>
     <select id="feeProgSelect"></select>
     <div id="myGrid" class="ag-theme-balham gridclass"></div>
     <script>
         // specify the columns
         var columnDefs = [
-            { headerName: "Product Type", field: "product_type", sortable: true, filter: true, checkboxSelection: true },
-            { headerName: "Quantity", field: "quant", sortable: true, filter: true },
-            { headerName: "Sale Price", field: "saleprice", sortable: true, filter: true },
-            { headerName: "Unit Profit", field: "unitprofit", sortable: true, filter: true },
-            { headerName: "Unit Profit %", field: "profitpercent", sortable: true, filter: true },
-            { headerName: "Total Profit", field: "totalprofit", sortable: true, filter: true },
-            { headerName: "Order ID", field: "orderid", sortable: true, filter: true },
-            { headerName: "Date", field: "date", sortable: true, filter: true },
-            { headerName: "Batch ID", field: "batchid", filter: true }];
+            { headerName: {% trans "'Product Type'" %}, field: "product_type", sortable: true, filter: true, checkboxSelection: true },
+            { headerName: {% trans "'Quantity'" %}, field: "quant", sortable: true, filter: true },
+            { headerName: {% trans "'Sale Price'" %}, field: "saleprice", sortable: true, filter: true },
+            { headerName: {% trans "'Unit Profit'" %}, field: "unitprofit", sortable: true, filter: true },
+            { headerName: {% trans "'Unit Profit %'" %}, field: "profitpercent", sortable: true, filter: true },
+            { headerName: {% trans "'Total Profit'" %}, field: "totalprofit", sortable: true, filter: true },
+            { headerName: {% trans "'Order ID'" %}, field: "orderid", sortable: true, filter: true },
+            { headerName: {% trans "'Date'" %}, field: "date", sortable: true, filter: true },
+            { headerName: {% trans "'Batch ID'" %}, field: "batchid", filter: true }];
         // let the grid know which columns and what data to use
         var gridOptions = { columnDefs: columnDefs, rowSelection: 'multiple' };
         // create the grid passing in the div to use together with the columns & data we want to use

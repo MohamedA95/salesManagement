@@ -1,10 +1,11 @@
 {%extends 'repbase.html'%}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head> {%block head%}
-  <title>Products</title>
+  <title>{% trans "Products" %}</title>
   <script>
     $('document').ready(function () {
       $('.nav-item').find('li.active').removeClass('active');
@@ -19,14 +20,14 @@
 
 <body>
   {%block body%}
-    <h3 class="titels">Products Report</h3>
+    <h3 class="titels">{% trans "Products Report" %}</h3>
     <div id="myGrid" class="ag-theme-balham gridclass"></div>
   <script>
     // specify the columns
     var columnDefs = [
-      { headerName: "Name", field: "name", sortable: true, filter: true,checkboxSelection: true },
-      { headerName: "Image", field: "rimage"},
-      { headerName: "Description", field: "description", sortable: true, filter: true }];
+      { headerName: {% trans "'Name'" %}, field: "name", sortable: true, filter: true,checkboxSelection: true },
+      { headerName: {% trans "'Image'" %}, field: "rimage"},
+      { headerName: {% trans "'Description'" %}, field: "description", sortable: true, filter: true }];
 
     // let the grid know which columns and what data to use
     var gridOptions = { columnDefs: columnDefs,  rowSelection: 'multiple' };

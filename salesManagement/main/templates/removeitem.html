@@ -1,9 +1,19 @@
 {%extends 'base.html'%}
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    {%block head%}<title>Remove Item</title>{%endblock%}
+    {%block head%}<title>{% trans "Remove Item" %}</title>
+    <script>
+        $('document').ready(function () {
+            $('.nav-item').find('li.active').removeClass('active');
+            $('#ritem').addClass('active');
+        });
+
+    </script>
+    {%endblock%}
 </head>
 
 <body>
@@ -19,25 +29,24 @@
         <form method="POST" class="post-form">
             {% csrf_token %}
             {{form.as_p}}
-            <button type="submit" class="save btn btn-default">Save</button>
+            <button type="submit" class="save btn btn-default">{% trans "Save"%}</button>
         </form>
     </div>
     <script>
-        $('document').ready(function () {
-            $('.nav-item').find('li.active').removeClass('active');
-            $('#ritem').addClass('active');
-        });
         $("#id_product_type").change(function () {
-            var pro=$("#id_product_type").val();
-             $.ajax({
-                 url: "/ajax/productbatches/"+pro,
-                 type: "GET",
-                 success: function(data){
-                     $("#id_batchid").html(data);
-                 }
-             });
-             });
+            var pro = $("#id_product_type").val();
+            $.ajax({
+                url: "/ajax/productbatches/" + pro,
+                type: "GET",
+                success: function (data) {
+                    $("#id_batchid").html(data);
+                }
+            });
+        });
+        var element = document.getElementById('id_product_type');
+        element.dispatchEvent(new Event('change'));
     </script>
+    
     {%endblock%}
 </body>
 

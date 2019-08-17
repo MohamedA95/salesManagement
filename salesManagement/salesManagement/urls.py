@@ -15,12 +15,29 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from django.conf.urls.i18n import i18n_patterns
+from main.viewset import feeprogViewSet,productViewSet,batchViewSet,salesViewSet, statisticsViewset,salesCustom
+from main.views import changeBatchStatus,editCompanyCapital
+from rest_framework import routers
+
+router=routers.DefaultRouter()
+router.register(r'feeprogVS',feeprogViewSet)
+router.register(r'productVS',productViewSet)
+router.register(r'batchVS',batchViewSet)
+router.register(r'salesVS',salesViewSet)
+router.register(r'statisticsVS',statisticsViewset)
 
 urlpatterns = [
+    path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
-    path('app/',include('main.urls')),
-    path('',include('main.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('api-auth/', include('rest_framework.urls'))
-
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/salescustom/<str:orderid>/',salesCustom.as_view()),
+    path('api/changeBatchStatus/',changeBatchStatus),
+    path('api/editCompanyCapital/',editCompanyCapital),
+    path('api/',include(router.urls)),
 ]
+
+urlpatterns += i18n_patterns(
+    path('',include('main.urls')),
+    path('app/',include('main.urls')))

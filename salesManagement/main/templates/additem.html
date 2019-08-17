@@ -1,10 +1,11 @@
 {%extends 'base.html'%}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head> {%block head%}
-    <title>Add Item</title>
+    <title>{% trans "Add Item" %}</title>
     <script>
         $('document').ready(function () {
             $('.nav-item').find('li.active').removeClass('active');
@@ -26,7 +27,7 @@
         <form method="POST" class="post-form">
             {% csrf_token %}
             {{form.as_p}}
-            <button type="submit" class="save btn btn-default">Save</button>
+            <button type="submit" class="save btn btn-default">{% trans "Save" %}</button>
         </form>
     </div>
     {%endblock%}

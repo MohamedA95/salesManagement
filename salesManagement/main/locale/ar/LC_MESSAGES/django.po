@@ -1,0 +1,325 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-03 17:42+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: salesManagement/main/forms.py:8
+msgid "Name"
+msgstr "الاسم"
+
+#: salesManagement/main/forms.py:9
+msgid "Image"
+msgstr "الصورة"
+
+#: salesManagement/main/forms.py:10
+msgid "Description"
+msgstr "الوصف"
+
+#: salesManagement/main/forms.py:18 salesManagement/main/forms.py:34
+msgid "Product"
+msgstr "المنتج"
+
+#: salesManagement/main/forms.py:19 salesManagement/main/forms.py:35
+msgid "Quantity"
+msgstr "الكمية"
+
+#: salesManagement/main/forms.py:20 salesManagement/main/forms.py:42
+msgid "Currency"
+msgstr "العملة"
+
+#: salesManagement/main/forms.py:20 salesManagement/main/forms.py:42
+msgid "used to buy the product"
+msgstr "التي تم الشراء بها"
+
+#: salesManagement/main/forms.py:21
+msgid "Total order cost"
+msgstr "التكلفة الاجمالية للشحنة"
+
+#: salesManagement/main/forms.py:21 salesManagement/main/forms.py:43
+msgid "In the chosen currency"
+msgstr "بالعملة التي تم اختيارها"
+
+#: salesManagement/main/forms.py:22 salesManagement/main/forms.py:37
+msgid "Batch ID"
+msgstr "رمز الشحنة"
+
+#: salesManagement/main/forms.py:22
+msgid "Uniqe ID for this batch of products"
+msgstr "رمز مميز للشحنة,اتركه فارغا ليقوم النظام بادخاله"
+
+#: salesManagement/main/forms.py:23 salesManagement/main/forms.py:41
+msgid "Fee Prog"
+msgstr "برنامج الرسوم"
+
+#: salesManagement/main/forms.py:24
+msgid "Status"
+msgstr "حالة الشحنة"
+
+#: salesManagement/main/forms.py:36
+msgid "Revenue"
+msgstr "العائد بعد الرسوم"
+
+#: salesManagement/main/forms.py:36
+msgid "per unit"
+msgstr "لكل قطعة"
+
+#: salesManagement/main/forms.py:38
+msgid "Order ID"
+msgstr "رقم الطلب"
+
+#: salesManagement/main/forms.py:38
+msgid "Uniqe ID for this order"
+msgstr "رقم مميز لهذا الطلب"
+
+#: salesManagement/main/forms.py:43
+msgid "Unit Cost"
+msgstr "تكلفة القطعة"
+
+#: salesManagement/main/forms.py:44
+msgid "Unit Cost in local market"
+msgstr "سعر القطعة في السوق المحلي"
+
+#: salesManagement/main/templates/additem.html:8
+#: salesManagement/main/templates/base.html:33
+#: salesManagement/main/templates/repbase.html:45
+msgid "Add Item"
+msgstr "إضافة شحنة"
+
+#: salesManagement/main/templates/additem.html:30
+#: salesManagement/main/templates/addproduct.html:34
+#: salesManagement/main/templates/removeitem.html:24
+msgid "Save"
+msgstr "حفظ"
+
+#: salesManagement/main/templates/addproduct.html:8
+msgid "Add product"
+msgstr "إضافة منتج"
+
+#: salesManagement/main/templates/base.html:32
+#: salesManagement/main/templates/repbase.html:44
+msgid "Add Product"
+msgstr "إضافة منتج"
+
+#: salesManagement/main/templates/base.html:34
+#: salesManagement/main/templates/removeitem.html:8
+#: salesManagement/main/templates/repbase.html:46
+msgid "Remove Item"
+msgstr "حذف قطعه/قطع"
+
+#: salesManagement/main/templates/base.html:35
+#: salesManagement/main/templates/repbase.html:47
+#: salesManagement/main/templates/repsales.html:8
+msgid "Sales"
+msgstr "المبيعات"
+
+#: salesManagement/main/templates/base.html:36
+#: salesManagement/main/templates/repbase.html:48
+#: salesManagement/main/templates/repproducts.html:8
+msgid "Products"
+msgstr "المنتجات"
+
+#: salesManagement/main/templates/base.html:37
+#: salesManagement/main/templates/repbase.html:49
+#: salesManagement/main/templates/repbatches.html:8
+msgid "Batches"
+msgstr "المخزون الحالي"
+
+#: salesManagement/main/templates/base.html:40
+#: salesManagement/main/templates/repbase.html:52
+msgid "Calculate Profit"
+msgstr "حساب الربح"
+
+#: salesManagement/main/templates/base.html:41
+#: salesManagement/main/templates/repbase.html:53
+msgid "Log Out"
+msgstr "تسجيل الخروج"
+
+#: salesManagement/main/templates/base.html:70
+#: salesManagement/main/templates/repbase.html:80
+msgid "You are not logged in"
+msgstr "يجب عليك تشجيل الدخول اولا"
+
+#: salesManagement/main/templates/base.html:71
+#: salesManagement/main/templates/registration/login.html:27
+#: salesManagement/main/templates/registration/login.html:31
+#: salesManagement/main/templates/repbase.html:81
+msgid "Login"
+msgstr "تسجيل الدخول"
+
+#: salesManagement/main/templates/calc.html:8
+msgid "Calcultate Profit"
+msgstr "حساب الربح"
+
+#: salesManagement/main/templates/calc.html:23
+msgid "Calcultate"
+msgstr "أحسب"
+
+#: salesManagement/main/templates/home.html:9
+msgid "Home"
+msgstr "الصفحة الرئيسية"
+
+#: salesManagement/main/templates/registration/login.html:10
+#, fuzzy
+#| msgid "Log Out"
+msgid "Log In"
+msgstr "تسجيل الخروج"
+
+#: salesManagement/main/templates/repbatches.html:22
+msgid "Batches Report"
+msgstr "تقرير المخزون"
+
+#: salesManagement/main/templates/repbatches.html:23
+msgid "Delete Batch"
+msgstr "حذف شحنة"
+
+#: salesManagement/main/templates/repbatches.html:29
+#: salesManagement/main/templates/repsales.html:38
+msgid "'Product Type'"
+msgstr "'المنتج'"
+
+#: salesManagement/main/templates/repbatches.html:30
+msgid "'Unit Price'"
+msgstr "'تكلفة القطعة'"
+
+#: salesManagement/main/templates/repbatches.html:31
+#: salesManagement/main/templates/repsales.html:39
+msgid "'Quantity'"
+msgstr "'الكمية'"
+
+#: salesManagement/main/templates/repbatches.html:32
+#: salesManagement/main/templates/repsales.html:46
+msgid "'Batch ID'"
+msgstr "'رمز الشحنة'"
+
+#: salesManagement/main/templates/repbatches.html:33
+msgid "'Stock Cost'"
+msgstr "'تكلفة المخزون'"
+
+#: salesManagement/main/templates/repbatches.html:34
+msgid "'Min selling price'"
+msgstr "'اقل سعر بيع'"
+
+#: salesManagement/main/templates/repbatches.html:35
+#, python-format
+msgid "'Selling price W/ 10%% profit'"
+msgstr "'سعر البيع بربح 10 %%'"
+
+#: salesManagement/main/templates/repbatches.html:36
+msgid "'Fee Prog'"
+msgstr "'برنامج الرسوم'"
+
+#: salesManagement/main/templates/repbatches.html:37
+msgid "'Status'"
+msgstr "'حالة الشحنة'"
+
+#: salesManagement/main/templates/repbatches.html:38
+msgid "'Addition Date'"
+msgstr "'تاريخ الإضافة'"
+
+#: salesManagement/main/templates/repproducts.html:23
+msgid "Products Report"
+msgstr "تقرير المنتجات"
+
+#: salesManagement/main/templates/repproducts.html:28
+msgid "'Name'"
+msgstr "'الأسم'"
+
+#: salesManagement/main/templates/repproducts.html:29
+msgid "'Image'"
+msgstr "'الصورة'"
+
+#: salesManagement/main/templates/repproducts.html:30
+msgid "'Description'"
+msgstr "'الوصف'"
+
+#: salesManagement/main/templates/repsales.html:28
+msgid "Sales Report"
+msgstr "تقرير المبيعات"
+
+#: salesManagement/main/templates/repsales.html:29
+msgid ""
+"To delete a sales order, choose and and choose the fee program, then click "
+"Delete."
+msgstr "لحذف عملية بيع قم باختيارها ثم اختيار نظام الرسوم ثم اضغط حذف"
+
+#: salesManagement/main/templates/repsales.html:31
+msgid "Delete Sale"
+msgstr "حذف عملية بيع"
+
+#: salesManagement/main/templates/repsales.html:32
+msgid "Fee program"
+msgstr "نظام الرسوم"
+
+#: salesManagement/main/templates/repsales.html:40
+msgid "'Sale Price'"
+msgstr "'سعر البيع'"
+
+#: salesManagement/main/templates/repsales.html:41
+msgid "'Unit Profit'"
+msgstr "'ربح القطعة'"
+
+#: salesManagement/main/templates/repsales.html:42
+#, python-format
+msgid "'Unit Profit %%'"
+msgstr "'نسبة الربح في القطعة'"
+
+#: salesManagement/main/templates/repsales.html:43
+msgid "'Total Profit'"
+msgstr "'الربح الاجمالي'"
+
+#: salesManagement/main/templates/repsales.html:44
+msgid "'Order ID'"
+msgstr "'رقم الطلب'"
+
+#: salesManagement/main/templates/repsales.html:45
+msgid "'Date'"
+msgstr "'التاريخ'"
+
+#: salesManagement/main/views.py:25
+msgid "Product added successfully!"
+msgstr "تم إضافة المنتج بنجاح"
+
+#: salesManagement/main/views.py:43
+msgid "The product is not in this batch, please choose the correct batch!"
+msgstr "هذا المنتج ليس ضمن هذه الشحنة برجاء اختيار الشحنة الصحيحة"
+
+#: salesManagement/main/views.py:59
+msgid ""
+"Either the product is not added or the Quantity is larger than the avalible!"
+msgstr "إما ان المنتج غير موجود او أن الكمية اكبر من الكمية المتاحة"
+
+#: salesManagement/main/views.py:65
+msgid "Item removed successfully!"
+msgstr "تم إزالة السلعة بنجاح"
+
+#: salesManagement/main/views.py:91
+msgid "Item added successfully!"
+msgstr "تم إضافة السلعة بنجاح"
+
+#: salesManagement/main/views.py:121
+msgid "Min selling price is "
+msgstr "أقل سعر بيع هو"
+
+#: salesManagement/main/views.py:121
+msgid " The diff between Min selling and Local price: "
+msgstr "الفرق بين اقل سعر بيع والسعر المحلي هو"
+
+#: salesManagement/main/views.py:122
+msgid "Profit percent at local price: "
+msgstr "نسبة الربح عند البيع بالسعر المحلي"

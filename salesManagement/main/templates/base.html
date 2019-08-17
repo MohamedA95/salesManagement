@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,16 +29,30 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
             <ul class="navbar-nav mr-auto">
-                <li id="aproduct"><a class="nav-link" href="/app/addpro">Add Product</a></li>
-                <li id="aitem"><a class="nav-link" href="/app/addit">Add Item</a></li>
-                <li id="ritem"><a class="nav-link" href="/app/rmit">Remove Item</a></li>
-                <li id="sales"><a class="nav-link" href="/rep/sales">Sales</a></li>
-                <li id="products"><a class="nav-link" href="/rep/products">Products</a></li>
-                <li id="batches"><a class="nav-link" href="/rep/batches">Batches</a></li>
+                <li id="aproduct"><a class="nav-link" href="/app/addpro">{% trans "Add Product" %}</a></li>
+                <li id="aitem"><a class="nav-link" href="/app/addit">{% trans "Add Item" %}</a></li>
+                <li id="ritem"><a class="nav-link" href="/app/rmit">{% trans "Remove Item" %}</a></li>
+                <li id="sales"><a class="nav-link" href="/rep/sales">{% trans "Sales" %}</a></li>
+                <li id="products"><a class="nav-link" href="/rep/products">{% trans "Products" %}</a></li>
+                <li id="batches"><a class="nav-link" href="/rep/batches">{% trans "Batches" %}</a></li>
+                <li id="statistics"><a class="nav-link" href="/rep/statistics">{% trans "statistics" %}</a></li>
+
               </ul>
               <ul class="navbar-nav" >
-                  <a class="nav-link" href="/app/calc">Calculate Profit</a>
-                  <a  class="nav-link" href="{% url 'logout'%}">Log Out</a>
+                  <a class="nav-link" href="/app/calc">{% trans "Calculate Profit" %}</a>
+                  <a  class="nav-link" href="{% url 'logout'%}">{% trans "Log Out" %}</a>
+                  <form action="{% url 'set_language' %}" method="post">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% if LANGUAGE_CODE == 'en' %}
+                    <input name="language" type="hidden" value="ar" />
+                    <input type="submit" value="عربي" class="nav-link langbutton" />
+                    {% elif LANGUAGE_CODE == 'ar' %}
+                    <input name="language" type="hidden" value="en" />
+                    <input type="submit" value="English" class="nav-link langbutton" />
+                    {% endif %}
+                  </form>
                 </ul>
         </div>
       </nav>
@@ -53,8 +69,8 @@
 <br>
 <br>
 <div class="container">
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">Login</a>
+  <p>{% trans "You are not logged in" %}</p>
+  <a href="{% url 'login' %}">{% trans "Login" %}</a>
 </div>
 {% endif %}
 

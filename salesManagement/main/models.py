@@ -17,7 +17,11 @@ class feeprog(models.Model):
     mulfee=models.FloatField(default=1)
     def __str__(self):
         return self.name        
-
+class BatchStatus(models.Model):
+    name=models.CharField(primary_key=True,max_length=100,default='',null=False,unique=True, blank=False)
+    cost=models.FloatField(default=0)
+    def __str__(self):
+        return self.name
 class product(models.Model):
     name=models.CharField(primary_key=True,max_length=100,default='',null=False,unique=True, blank=False)
     product_type=models.CharField(max_length=100,default='',null=True,unique=False, blank=True)
@@ -38,6 +42,8 @@ class batch(models.Model):
     total_cost=models.FloatField(default=0.0)
     profit10=models.FloatField(default=0.0)
     feeprog=models.ForeignKey(feeprog,on_delete=models.SET_NULL,null=True)
+    date=models.DateField(auto_now=True)
+    status=models.ForeignKey(BatchStatus,on_delete=models.SET_DEFAULT,default='')
     def __str__(self):
        return self.batchid
     class Meta:
@@ -54,3 +60,9 @@ class sales(models.Model):
     profit=models.FloatField(default=0.0)
     date=models.DateField(auto_now=True)
     orderid=models.CharField(max_length=200,default='',blank=True,null=True,unique=True)
+
+class Statistics(models.Model):
+    name=models.CharField(primary_key=True,max_length=100,default='',null=False,unique=True, blank=False)
+    value=models.FloatField(default=0)
+    def __str__(self):
+        return self.name
