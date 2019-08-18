@@ -42,10 +42,12 @@ class salesCustom(APIView):
     def delete(self, request, orderid):
         print("correct")
         salesObj = get_object_or_404(sales, orderid=orderid)
+        batchstatus=None
         try:
             batchObj=batch.objects.get(batchid__exact=salesObj.batchid)
             batchObj.quant=batchObj.quant+1
             batchObj.total_cost=batchObj.total_cost+batchObj.unit_price
+            batchstatus=batchObj.status
             batchObj.save()
         except:
             batchObj=batch()
@@ -57,6 +59,11 @@ class salesCustom(APIView):
             batchObj.currency=currency.objects.get(name__exact='SAR')
             batchObj.total_cost=batchObj.unit_price*batchObj.quant
             batchObj.profit10=utility.calSellingatProfitPercent(batchObj.unit_price,request.META["HTTP_FEEPROG"],0.1)
+            batchObj.status=batch.objects.get(name__exact=request.META["HTTP_STATUS"])
+            batchstatus=batchObj.status
             batchObj.save()
+        utility.editStatistics('total',-salesObj.totalprofit)
+        utility.editStatistics('capital',-salesObj.saleprice*salesObj.quant)
+        utility.editStatistics(batchstatus,batchObj.unit_price*salesObj.quant)
         salesObj.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

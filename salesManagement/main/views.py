@@ -143,6 +143,11 @@ def getBatchesForProduct(request,product):
     batches=batch.objects.filter(product_type__exact=product,status__in=['FBS','Stock'])
     return render(request,'batchesforproduct.html',{'batches':batches})
 
+def rmsaleorder(request):
+    feeprogs=feeprog.objects.all()
+    statuss=BatchStatus.objects.all()
+    return render(request,'removesaleorder.html',{'feeprogs':feeprogs,'statuss':statuss})
+
 def changeBatchStatus(request):
     batchObj=batch.objects.get(batchid__exact=request.META["HTTP_BATCHID"])
     utility.editStatistics(batchObj.status,-batchObj.total_cost)

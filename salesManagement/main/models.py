@@ -31,6 +31,8 @@ class product(models.Model):
     avalible=models.BooleanField(default=False)
     def __str__(self):
         return self.name
+    class Meta:
+        ordering=['name']
 class batch(models.Model):
     product_type=models.ForeignKey(product,on_delete=models.SET_DEFAULT,default='')
     quant=models.IntegerField(default=0)

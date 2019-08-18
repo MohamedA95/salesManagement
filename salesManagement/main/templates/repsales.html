@@ -26,11 +26,6 @@
 <body>
     {%block body%}
     <h3 class="titels">{% trans 'Sales Report' %}</h3>
-    <span>{% trans 'To delete a sales order, choose and and choose the fee program, then click Delete.' %}</span>
-    <br>
-    <button onclick="Deletesales()">{% trans 'Delete Sale' %}</button>
-    <br><br><sapn>{% trans  'Fee program'%}</sapn>
-    <select id="feeProgSelect"></select>
     <div id="myGrid" class="ag-theme-balham gridclass"></div>
     <script>
         // specify the columns
