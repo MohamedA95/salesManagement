@@ -32,10 +32,10 @@
     <script>
         // specify the columns
         var columnDefs = [
-            { headerName: {% trans "'Name'" %}, field: "name"},
-            { headerName: {% trans "'Value'" %}, field: "value"}];
+            { headerName: {% trans "'Name'" %}, field: "name",sortable: true},
+            { headerName: {% trans "'Value'" %}, field: "value",sortable: true,valueGetter: function(params) { return params.data.value.toFixed(2); }}];
         // let the grid know which columns and what data to use
-        var gridOptions = { columnDefs: columnDefs, rowSelection: 'multiple' };
+        var gridOptions = { columnDefs: columnDefs, rowSelection: 'multiple' ,onFirstDataRendered(params) {params.api.sizeColumnsToFit();}};
         // create the grid passing in the div to use together with the columns & data we want to use
         new agGrid.Grid(document.querySelector('#myGrid'), gridOptions);
         $.ajax({url: "/api/statisticsVS/",type: "GET",success: function(data){gridOptions.api.setRowData(data["results"]);}});

@@ -68,3 +68,5 @@ class Statistics(models.Model):
     value=models.FloatField(default=0)
     def __str__(self):
         return self.name
+    class Meta:
+        ordering=['-name']

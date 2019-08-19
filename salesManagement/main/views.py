@@ -9,6 +9,7 @@ from . import utility
 from django.utils.translation import gettext as _
 from datetime import date
 import sys
+
 def addpro(request):
     if request.method == "POST":
         form = productform(request.POST,request.FILES)
@@ -18,6 +19,8 @@ def addpro(request):
             if(request.FILES):
                 proObj.image=request.FILES['image']
                 proObj.rimage="<img height='20%' width='100%' src='/media/"+"{}.{}".format(proObj.name,str(proObj.image).split('.')[-1])+"'/>"
+                print(proObj.image)
+                print(proObj.rimage)
             else:
                 proObj.image=None
                 proObj.rimage=''
@@ -92,7 +95,7 @@ def addit(request):
             batchObj.status= form.cleaned_data['status']
             if(form.cleaned_data['batchid']==""):
                 batchObj.batchid=str(batchObj.product_type)
-                batchObj.batchid+=" Q"+str(batchObj.quant)+" "+str(batchObj.unit_price)+" "+date.today().strftime("%d %b")
+                batchObj.batchid+=" Q"+str(batchObj.quant)+" "+str(round(batchObj.unit_price,2))+" "+date.today().strftime("%d %b")
             else:
                 batchObj.batchid=form.cleaned_data['batchid']
             batchObj.save()

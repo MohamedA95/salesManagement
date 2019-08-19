@@ -26,17 +26,17 @@
     {% endfor %}
     {% endif %}
     <div class="container">
-        <span>{% trans 'To delete a sales order, enter its id and select  fee program and the new item status, then click Delete.' %}</span>
+        <span>{% blocktrans %}To delete a sales order, enter its id and select  fee program and the new item status, then click Delete.{% endblocktrans %}</span>
         <br>
         <br>
-        <sapn>{% trans  'Fee program'%}</sapn>
+        <sapn>{% trans  "Fee program" %}</sapn>
         <select id="feeProgSelect">
             {% for fp in feeprogs %}
             <option value="{{ fp.name }}">{{ fp.name }}</option>
             {% endfor %}
         </select>
         <br><br>    
-        <span>{% trans 'New Status'%}</span>
+        <span>{% trans 'New Status' %}</span>
         <select id="statusSelect">
             {% for st in statuss %}
             <option value="{{ st.name }}">{{ st.name }}</option>

@@ -21,12 +21,6 @@ function getCookie(name) {
 
 function getShipmentStatus(){
     fetch('/api/BatchStatusVS/').then( function (response) {return jsonToList(response);});
-
-
-    //     $.ajax({url: "/api/BatchStatusVS/",type: "GET",success: function(data){
-//         return(jsonToList(data["results"]));
-//     }
-// });
 }
 function jsonToList(json){
     var result = [];
@@ -35,8 +29,6 @@ function jsonToList(json){
 }
 
 function changeShipmentState(data){
-    console.log(data['newValue']);
-    console.log(data['data']['batchid']);
     $.ajaxSetup({
         beforeSend: function(xhr, settings) {
             if (!csrfSafeMethod(settings.type) && !this.crossDomain) {

@@ -40,7 +40,6 @@ class salesCustom(APIView):
     Delete sales entry. This will increment the relative batch quantity and cost
     """
     def delete(self, request, orderid):
-        print("correct")
         salesObj = get_object_or_404(sales, orderid=orderid)
         batchstatus=None
         try:

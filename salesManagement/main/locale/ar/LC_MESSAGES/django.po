@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-03 17:42+0300\n"
+"POT-Creation-Date: 2019-08-19 19:55+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,6 +80,7 @@ msgid "per unit"
 msgstr "لكل قطعة"
 
 #: salesManagement/main/forms.py:38
+#: salesManagement/main/templates/removesaleorder.html:46
 msgid "Order ID"
 msgstr "رقم الطلب"
 
@@ -96,14 +97,14 @@ msgid "Unit Cost in local market"
 msgstr "سعر القطعة في السوق المحلي"
 
 #: salesManagement/main/templates/additem.html:8
-#: salesManagement/main/templates/base.html:33
+#: salesManagement/main/templates/base.html:35
 #: salesManagement/main/templates/repbase.html:45
 msgid "Add Item"
 msgstr "إضافة شحنة"
 
 #: salesManagement/main/templates/additem.html:30
 #: salesManagement/main/templates/addproduct.html:34
-#: salesManagement/main/templates/removeitem.html:24
+#: salesManagement/main/templates/removeitem.html:32
 msgid "Save"
 msgstr "حفظ"
 
@@ -111,54 +112,65 @@ msgstr "حفظ"
 msgid "Add product"
 msgstr "إضافة منتج"
 
-#: salesManagement/main/templates/base.html:32
+#: salesManagement/main/templates/base.html:34
 #: salesManagement/main/templates/repbase.html:44
 msgid "Add Product"
 msgstr "إضافة منتج"
 
-#: salesManagement/main/templates/base.html:34
+#: salesManagement/main/templates/base.html:36
 #: salesManagement/main/templates/removeitem.html:8
 #: salesManagement/main/templates/repbase.html:46
 msgid "Remove Item"
 msgstr "حذف قطعه/قطع"
 
-#: salesManagement/main/templates/base.html:35
+#: salesManagement/main/templates/base.html:37
 #: salesManagement/main/templates/repbase.html:47
 #: salesManagement/main/templates/repsales.html:8
+#: salesManagement/main/templates/repstatistics.html:8
 msgid "Sales"
 msgstr "المبيعات"
 
-#: salesManagement/main/templates/base.html:36
+#: salesManagement/main/templates/base.html:38
 #: salesManagement/main/templates/repbase.html:48
 #: salesManagement/main/templates/repproducts.html:8
 msgid "Products"
 msgstr "المنتجات"
 
-#: salesManagement/main/templates/base.html:37
+#: salesManagement/main/templates/base.html:39
 #: salesManagement/main/templates/repbase.html:49
 #: salesManagement/main/templates/repbatches.html:8
 msgid "Batches"
 msgstr "المخزون الحالي"
 
 #: salesManagement/main/templates/base.html:40
-#: salesManagement/main/templates/repbase.html:52
+#: salesManagement/main/templates/repbase.html:50
+msgid "Statistics"
+msgstr "الإحصائيات"
+
+#: salesManagement/main/templates/base.html:41
+#: salesManagement/main/templates/repbase.html:51
+msgid "Remove Sale order"
+msgstr "إلغاء امر بيع"
+
+#: salesManagement/main/templates/base.html:44
+#: salesManagement/main/templates/repbase.html:55
 msgid "Calculate Profit"
 msgstr "حساب الربح"
 
-#: salesManagement/main/templates/base.html:41
-#: salesManagement/main/templates/repbase.html:53
+#: salesManagement/main/templates/base.html:45
+#: salesManagement/main/templates/repbase.html:56
 msgid "Log Out"
 msgstr "تسجيل الخروج"
 
-#: salesManagement/main/templates/base.html:70
-#: salesManagement/main/templates/repbase.html:80
+#: salesManagement/main/templates/base.html:74
+#: salesManagement/main/templates/repbase.html:83
 msgid "You are not logged in"
 msgstr "يجب عليك تشجيل الدخول اولا"
 
-#: salesManagement/main/templates/base.html:71
+#: salesManagement/main/templates/base.html:75
 #: salesManagement/main/templates/registration/login.html:27
 #: salesManagement/main/templates/registration/login.html:31
-#: salesManagement/main/templates/repbase.html:81
+#: salesManagement/main/templates/repbase.html:84
 msgid "Login"
 msgstr "تسجيل الدخول"
 
@@ -175,10 +187,28 @@ msgid "Home"
 msgstr "الصفحة الرئيسية"
 
 #: salesManagement/main/templates/registration/login.html:10
-#, fuzzy
-#| msgid "Log Out"
 msgid "Log In"
 msgstr "تسجيل الخروج"
+
+#: salesManagement/main/templates/removesaleorder.html:8
+msgid "Remove sale order"
+msgstr "إلغاء امر بيع"
+
+#: salesManagement/main/templates/removesaleorder.html:29
+msgid "To delete a sales order, enter its id and select  fee program and the new item status, then click Delete."
+msgstr "لحذف عملية بيع قم بإدخال الرقم المميز للطلب واختيار نظام الرسوم الجديد والحالة الجديدة للشحنة ثم اضغط حذف"
+
+#: salesManagement/main/templates/removesaleorder.html:32
+msgid "Fee program"
+msgstr "نظام الرسوم"
+
+#: salesManagement/main/templates/removesaleorder.html:39
+msgid "New Status"
+msgstr "الحالة الجديدة للقطعة"
+
+#: salesManagement/main/templates/removesaleorder.html:49
+msgid "Delete Sale"
+msgstr "حذف عملية بيع"
 
 #: salesManagement/main/templates/repbatches.html:22
 msgid "Batches Report"
@@ -188,47 +218,47 @@ msgstr "تقرير المخزون"
 msgid "Delete Batch"
 msgstr "حذف شحنة"
 
-#: salesManagement/main/templates/repbatches.html:29
-#: salesManagement/main/templates/repsales.html:38
+#: salesManagement/main/templates/repbatches.html:28
+#: salesManagement/main/templates/repsales.html:33
 msgid "'Product Type'"
 msgstr "'المنتج'"
 
-#: salesManagement/main/templates/repbatches.html:30
+#: salesManagement/main/templates/repbatches.html:29
 msgid "'Unit Price'"
 msgstr "'تكلفة القطعة'"
 
-#: salesManagement/main/templates/repbatches.html:31
-#: salesManagement/main/templates/repsales.html:39
+#: salesManagement/main/templates/repbatches.html:30
+#: salesManagement/main/templates/repsales.html:34
 msgid "'Quantity'"
 msgstr "'الكمية'"
 
-#: salesManagement/main/templates/repbatches.html:32
-#: salesManagement/main/templates/repsales.html:46
+#: salesManagement/main/templates/repbatches.html:31
+#: salesManagement/main/templates/repsales.html:41
 msgid "'Batch ID'"
 msgstr "'رمز الشحنة'"
 
-#: salesManagement/main/templates/repbatches.html:33
+#: salesManagement/main/templates/repbatches.html:32
 msgid "'Stock Cost'"
 msgstr "'تكلفة المخزون'"
 
-#: salesManagement/main/templates/repbatches.html:34
+#: salesManagement/main/templates/repbatches.html:33
 msgid "'Min selling price'"
 msgstr "'اقل سعر بيع'"
 
-#: salesManagement/main/templates/repbatches.html:35
+#: salesManagement/main/templates/repbatches.html:34
 #, python-format
 msgid "'Selling price W/ 10%% profit'"
 msgstr "'سعر البيع بربح 10 %%'"
 
-#: salesManagement/main/templates/repbatches.html:36
+#: salesManagement/main/templates/repbatches.html:35
 msgid "'Fee Prog'"
 msgstr "'برنامج الرسوم'"
 
-#: salesManagement/main/templates/repbatches.html:37
+#: salesManagement/main/templates/repbatches.html:36
 msgid "'Status'"
 msgstr "'حالة الشحنة'"
 
-#: salesManagement/main/templates/repbatches.html:38
+#: salesManagement/main/templates/repbatches.html:37
 msgid "'Addition Date'"
 msgstr "'تاريخ الإضافة'"
 
@@ -237,6 +267,7 @@ msgid "Products Report"
 msgstr "تقرير المنتجات"
 
 #: salesManagement/main/templates/repproducts.html:28
+#: salesManagement/main/templates/repstatistics.html:35
 msgid "'Name'"
 msgstr "'الأسم'"
 
@@ -252,46 +283,52 @@ msgstr "'الوصف'"
 msgid "Sales Report"
 msgstr "تقرير المبيعات"
 
-#: salesManagement/main/templates/repsales.html:29
-msgid ""
-"To delete a sales order, choose and and choose the fee program, then click "
-"Delete."
-msgstr "لحذف عملية بيع قم باختيارها ثم اختيار نظام الرسوم ثم اضغط حذف"
-
-#: salesManagement/main/templates/repsales.html:31
-msgid "Delete Sale"
-msgstr "حذف عملية بيع"
-
-#: salesManagement/main/templates/repsales.html:32
-msgid "Fee program"
-msgstr "نظام الرسوم"
-
-#: salesManagement/main/templates/repsales.html:40
+#: salesManagement/main/templates/repsales.html:35
 msgid "'Sale Price'"
 msgstr "'سعر البيع'"
 
-#: salesManagement/main/templates/repsales.html:41
+#: salesManagement/main/templates/repsales.html:36
 msgid "'Unit Profit'"
 msgstr "'ربح القطعة'"
 
-#: salesManagement/main/templates/repsales.html:42
+#: salesManagement/main/templates/repsales.html:37
 #, python-format
 msgid "'Unit Profit %%'"
 msgstr "'نسبة الربح في القطعة'"
 
-#: salesManagement/main/templates/repsales.html:43
+#: salesManagement/main/templates/repsales.html:38
 msgid "'Total Profit'"
 msgstr "'الربح الاجمالي'"
 
-#: salesManagement/main/templates/repsales.html:44
+#: salesManagement/main/templates/repsales.html:39
 msgid "'Order ID'"
 msgstr "'رقم الطلب'"
 
-#: salesManagement/main/templates/repsales.html:45
+#: salesManagement/main/templates/repsales.html:40
 msgid "'Date'"
 msgstr "'التاريخ'"
 
-#: salesManagement/main/views.py:25
+#: salesManagement/main/templates/repstatistics.html:21
+msgid "statistics"
+msgstr "الإحصائيات"
+
+#: salesManagement/main/templates/repstatistics.html:24
+msgid "To cahnge Company Capital fill in the new value and click the button"
+msgstr "لتعديل رأس المال ادخل القيمة الجديدة ثم اضغط علي الزر"
+
+#: salesManagement/main/templates/repstatistics.html:26
+msgid "Edit Company Capital"
+msgstr "تعديل رأس المال"
+
+#: salesManagement/main/templates/repstatistics.html:29
+msgid "Company Capital"
+msgstr "رأس مال الشركة"
+
+#: salesManagement/main/templates/repstatistics.html:36
+msgid "'Value'"
+msgstr "'القيمة'"
+
+#: salesManagement/main/views.py:26
 msgid "Product added successfully!"
 msgstr "تم إضافة المنتج بنجاح"
 
@@ -304,22 +341,26 @@ msgid ""
 "Either the product is not added or the Quantity is larger than the avalible!"
 msgstr "إما ان المنتج غير موجود او أن الكمية اكبر من الكمية المتاحة"
 
-#: salesManagement/main/views.py:65
+#: salesManagement/main/views.py:71
 msgid "Item removed successfully!"
 msgstr "تم إزالة السلعة بنجاح"
 
-#: salesManagement/main/views.py:91
+#: salesManagement/main/views.py:74
+msgid "ERROR:"
+msgstr "خطأ"
+
+#: salesManagement/main/views.py:105
 msgid "Item added successfully!"
 msgstr "تم إضافة السلعة بنجاح"
 
-#: salesManagement/main/views.py:121
+#: salesManagement/main/views.py:138
 msgid "Min selling price is "
 msgstr "أقل سعر بيع هو"
 
-#: salesManagement/main/views.py:121
+#: salesManagement/main/views.py:138
 msgid " The diff between Min selling and Local price: "
 msgstr "الفرق بين اقل سعر بيع والسعر المحلي هو"
 
-#: salesManagement/main/views.py:122
+#: salesManagement/main/views.py:139
 msgid "Profit percent at local price: "
 msgstr "نسبة الربح عند البيع بالسعر المحلي"

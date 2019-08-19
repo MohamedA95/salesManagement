@@ -4,3 +4,4 @@ db.sqlite3
 salesManagement/main/__pycache__/*
 salesManagement/db.sqlite3
 salesManagement/salesManagement/__pycache__/*
+*.pyc
