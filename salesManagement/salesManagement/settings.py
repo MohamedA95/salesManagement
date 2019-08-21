@@ -23,11 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('DJSECRET','=9eid=l%3vrw!1e!6gthq=@n)0k)6ybnatlzd-ou6@=6@&(s9b')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = os.environ.get('DEBUG',False)
-DEBUG = True
+DEBUG = os.environ.get('DEBUG',False)
+# DEBUG = True
 
-# ALLOWED_HOSTS = ["10.85.97.144"]
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["10.85.97.144"]
+# ALLOWED_HOSTS = ["127.0.0.1"]
 
 
 # Application definition
