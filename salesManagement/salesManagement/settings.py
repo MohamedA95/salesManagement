@@ -24,10 +24,8 @@ SECRET_KEY = os.environ.get('DJSECRET','=9eid=l%3vrw!1e!6gthq=@n)0k)6ybnatlzd-ou
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG',False)
-# DEBUG = True
 
-ALLOWED_HOSTS = ["10.85.97.144"]
-# ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = [os.environ.get('ALLOWEDHOSTS',"127.0.0.1")]
 
 
 # Application definition
@@ -79,16 +77,36 @@ WSGI_APPLICATION = 'salesManagement.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('POSTGRES_NAME'),
-        'USER': os.environ.get('POSTGRES_USER'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': os.environ.get('POSTGRES_HOST'),  
-        'PORT': '5432',
+# [START db_setup]
+if os.getenv('GAE_APPLICATION', None):
+    # Running on production App Engine, so connect to Google Cloud SQL using
+    # the unix socket at /cloudsql/<your-cloudsql-connection string>
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'HOST': os.getenv("DBHOST",None),
+            'NAME': os.getenv("DBNAME",None),
+            'USER': os.getenv("DBUSER",None),
+            'PASSWORD': os.getenv("DBPASSWORD",None),
+        }
     }
-}
+else:
+    # Running locally so connect to either a local MySQL instance or connect to
+    # Cloud SQL via the proxy. To start the proxy via command line:
+    #
+    #     $ cloud_sql_proxy -instances=[INSTANCE_CONNECTION_NAME]=tcp:3306
+    #
+    # See https://cloud.google.com/sql/docs/mysql-connect-proxy
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'HOST': os.getenv("DBHOST",None),
+            'PORT': os.getenv("DBPORT",None),
+            'NAME': os.getenv("DBNAME",None),
+            'USER': os.getenv("DBUSER",None),
+            'PASSWORD': os.getenv("DBPASSWORD",None),
+        }
+    }
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -153,10 +171,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 ENV_PATH = os.path.abspath(os.path.dirname(__file__))
-MEDIA_ROOT = os.environ.get('DJANGOMEDIAROOT')
-STATIC_ROOT= os.environ.get('DJANGOSTATICROOT')
+MEDIA_ROOT = 'media'
+STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
 MEDIA_URL = "/media/"
 LOGIN_REDIRECT_URL = '/home'
 LOGOUT_REDIRECT_URL = '/accounts/login'
-LOCAL_PATHS=[os.path.join(BASE_DIR,'locale')]
+LOCAL_PATHS = [os.path.join(BASE_DIR, 'locale')]

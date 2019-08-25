@@ -1,8 +1,8 @@
 .vscode/
 media/
 db.sqlite3
-salesManagement/main/__pycache__/*
-salesManagement/main/migrations/__pycache__
 salesManagement/db.sqlite3
-salesManagement/salesManagement/__pycache__/*
-*.pyc
+salesManagement/**/*.pyc
+salesManagement/static
+salesManagement/app.yaml
+.gcloudignore
