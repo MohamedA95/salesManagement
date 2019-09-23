@@ -40,6 +40,9 @@ def rmit(request):
             salesObj.quant=form.cleaned_data['quant']
             salesObj.saleprice=form.cleaned_data['saleprice']
             salesObj.batchid=form.cleaned_data['batchid']
+            if(sales.objects.filter(orderid__exact=form.cleaned_data['orderid']).count()!=0):
+                messages.error(request, _("This order is already registered!"))
+                return render(request, 'removeitem.html', {'form': salesform})
             salesObj.orderid=form.cleaned_data['orderid']
             batchObj = batch.objects.get(batchid__exact=salesObj.batchid)
             if(salesObj.product_type != getattr(batchObj, 'product_type')):

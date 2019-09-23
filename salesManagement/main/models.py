@@ -16,7 +16,9 @@ class feeprog(models.Model):
     addfee=models.FloatField(default=0)
     mulfee=models.FloatField(default=1)
     def __str__(self):
-        return self.name        
+        return self.name
+    class Meta:
+        ordering=['name']        
 class BatchStatus(models.Model):
     name=models.CharField(primary_key=True,max_length=100,default='',null=False,unique=True, blank=False)
     cost=models.FloatField(default=0)
@@ -62,7 +64,8 @@ class sales(models.Model):
     profit=models.FloatField(default=0.0)
     date=models.DateField(auto_now=True)
     orderid=models.CharField(max_length=200,default='',blank=True,null=True,unique=True)
-
+    class Meta:
+        ordering=['-date']
 class Statistics(models.Model):
     name=models.CharField(primary_key=True,max_length=100,default='',null=False,unique=True, blank=False)
     value=models.FloatField(default=0)

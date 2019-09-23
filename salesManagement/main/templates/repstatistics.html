@@ -6,7 +6,6 @@
 
 <head> {%block head%}
     <title>{% trans "Sales" %}</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script>
         $('document').ready(function () {
             $('.nav-item').find('li.active').removeClass('active');
@@ -35,10 +34,10 @@
             { headerName: {% trans "'Name'" %}, field: "name",sortable: true},
             { headerName: {% trans "'Value'" %}, field: "value",sortable: true,valueGetter: function(params) { return params.data.value.toFixed(2); }}];
         // let the grid know which columns and what data to use
-        var gridOptions = { columnDefs: columnDefs, rowSelection: 'multiple' ,onFirstDataRendered(params) {params.api.sizeColumnsToFit();}};
+        var gridOptions = { paginationAutoPageSize:'true',pagination:'true',columnDefs: columnDefs, rowSelection: 'multiple' ,onFirstDataRendered(params) {params.api.sizeColumnsToFit();}};
         // create the grid passing in the div to use together with the columns & data we want to use
         new agGrid.Grid(document.querySelector('#myGrid'), gridOptions);
-        $.ajax({url: "/api/statisticsVS/",type: "GET",success: function(data){gridOptions.api.setRowData(data["results"]);}});
+        $.ajax({url: "/api/statisticsVS/",type: "GET",success: function(data){gridOptions.api.setRowData(data);}});
         
         function editCompanyCapital() {
             $.ajaxSetup({

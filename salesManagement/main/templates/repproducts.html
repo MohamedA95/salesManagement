@@ -30,10 +30,10 @@
       { headerName: {% trans "'Description'" %}, field: "description", sortable: true, filter: true }];
 
     // let the grid know which columns and what data to use
-    var gridOptions = { columnDefs: columnDefs,  rowSelection: 'multiple' ,onFirstDataRendered(params) {params.api.sizeColumnsToFit();}};
+    var gridOptions = { paginationAutoPageSize:'true',pagination:'true',columnDefs: columnDefs,  rowSelection: 'multiple' ,onFirstDataRendered(params) {params.api.sizeColumnsToFit();}};
     // create the grid passing in the div to use together with the columns & data we want to use
     new agGrid.Grid(document.querySelector('#myGrid'), gridOptions);
-    fetch('/api/productVS/').then(function (response) {return response.json();}).then(function (data) {gridOptions.api.setRowData(data["results"]);})
+    fetch('/api/productVS/').then(function (response) {return response.json();}).then(function (data) {gridOptions.api.setRowData(data);})
 
 </script>
 

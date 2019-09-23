@@ -77,10 +77,9 @@ WSGI_APPLICATION = 'salesManagement.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# [START db_setup]
 if os.getenv('GAE_APPLICATION', None):
     # Running on production App Engine, so connect to Google Cloud SQL using
-    # the unix socket at /cloudsql/<your-cloudsql-connection string>
+    # the unix socket at /cloudsql/<your-cloudsql-connection string>    
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -107,12 +106,7 @@ else:
             'PASSWORD': os.getenv("DBPASSWORD",None),
         }
     }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -132,7 +126,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# 'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated',],
 REST_FRAMEWORK = {
         
     'DEFAULT_RENDERER_CLASSES': (
@@ -143,8 +136,8 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'rest_framework_datatables.filters.DatatablesFilterBackend',
     ),
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework_datatables.pagination.DatatablesPageNumberPagination',
-    'PAGE_SIZE': 50,
+    'DEFAULT_PAGINATION_CLASS': None,
+    'PAGE_SIZE': None,
         'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),

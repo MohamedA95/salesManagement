@@ -6,7 +6,6 @@
 
 <head> {%block head%}
     <title>{% trans "Sales" %}</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script>
         $('document').ready(function () {
             $('.nav-item').find('li.active').removeClass('active');
@@ -40,10 +39,10 @@
             { headerName: {% trans "'Date'" %}, field: "date", sortable: true, filter: true },
             { headerName: {% trans "'Batch ID'" %}, field: "batchid", filter: true }];
         // let the grid know which columns and what data to use
-        var gridOptions = { columnDefs: columnDefs, rowSelection: 'multiple', onFirstDataRendered(params) {params.api.sizeColumnsToFit();} };
+        var gridOptions = { paginationAutoPageSize:'true',pagination:'true', columnDefs: columnDefs, rowSelection: 'multiple', onFirstDataRendered(params) {params.api.sizeColumnsToFit();} };
         // create the grid passing in the div to use together with the columns & data we want to use
         new agGrid.Grid(document.querySelector('#myGrid'), gridOptions);
-        $.ajax({url: "/api/salesVS/",type: "GET",success: function(data){gridOptions.api.setRowData(data["results"]);}});
+        $.ajax({url: "/api/salesVS/",type: "GET",success: function(data){gridOptions.api.setRowData(data);}});
         function Deletesales() {
             $.ajaxSetup({
                 beforeSend: function (xhr, settings) {
