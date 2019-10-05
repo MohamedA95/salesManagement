@@ -141,8 +141,8 @@ def calc(request):
             localprice=form.cleaned_data['local_price']
             onlineprice=float(form.cleaned_data['unit_cost'])*exrate
             minselling = utility.calMinSelling(onlineprice,fee_prog)
-            messages.info(request, _("Min selling price is ")+str(minselling)+_(" The diff between Min selling and Local price: ")+str(localprice-minselling))
-            messages.info(request,_("Profit percent at local price: ")+str(utility.calProfitPercent(onlineprice,fee_prog,localprice)))
+            messages.info(request, _("Min selling price is ")+" {0:.2f} ".format(minselling)+_(" The diff between Min selling and Local price: ")+" {0:.2f} ".format(localprice-minselling))
+            messages.info(request,_("Profit percent at local price: ")+" {0:.2f} % ".format(utility.calProfitPercent(onlineprice,fee_prog,localprice)))
     return render(request, 'calc.html', {'form': calcform})
 
 def getBatchesForProduct(request,product):

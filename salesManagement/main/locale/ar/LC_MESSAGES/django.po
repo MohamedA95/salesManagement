@@ -172,7 +172,7 @@ msgstr "الصفحة الرئيسية"
 
 #: main/templates/registration/login.html:10
 msgid "Log In"
-msgstr "تسجيل الخروج"
+msgstr "تسجيل الدخول"
 
 #: main/templates/removesaleorder.html:8
 msgid "Remove sale order"

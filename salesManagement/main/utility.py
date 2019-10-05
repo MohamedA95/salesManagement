@@ -15,7 +15,13 @@ def calProfitPercent(unitCost,feeProg,sellingPrice):
     ''' Returns the profit percent based on the selling price, unit cost and fee prog'''
     add = getattr(feeprog.objects.get(name__exact=feeProg), 'addfee')
     multiply = 1-(getattr(feeprog.objects.get(name__exact=feeProg), 'mulfee')/100)
-    return (((float(sellingPrice)-add)*multiply)/float(unitCost))*100
+    print(unitCost)
+    print(feeProg)
+    print(sellingPrice)
+    print(add)
+    print(multiply)
+    res=((((float(sellingPrice)-add)*multiply)/float(unitCost))-1)*100
+    return res
 
 def querysetToJSlist(queryset):
     res='['
