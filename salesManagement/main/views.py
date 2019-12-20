@@ -93,7 +93,7 @@ def addit(request):
             exrate = getattr(currency.objects.get(name__exact=batchObj.currency), 'exrate')
             batchObj.unit_price *= exrate
             batchObj.total_cost=form.cleaned_data['total_cost']*exrate
-            batchObj.minselling = utility.calMinSelling(batchObj.unit_price,batchObj.feeprog)
+            batchObj.minselling = utility.calcultate_min_selling(batchObj.unit_price,batchObj.feeprog)
             batchObj.profit10 = utility.calculate_selling_profit_percent(batchObj.unit_price,batchObj.feeprog,0.1)
             batchObj.status= form.cleaned_data['status']
             if(form.cleaned_data['batchid']==""):
@@ -140,7 +140,7 @@ def calc(request):
             exrate = getattr(currency.objects.get(name__exact=form.cleaned_data['currency']), 'exrate')
             localprice=form.cleaned_data['local_price']
             onlineprice=float(form.cleaned_data['unit_cost'])*exrate
-            minselling = utility.calMinSelling(onlineprice,fee_prog)
+            minselling = utility.calcultate_min_selling(onlineprice,fee_prog)
             messages.info(request, _("Min selling price is ")+" {0:.2f} ".format(minselling))
             messages.info(request,_("The diff between Min selling and Local price: ")+" {0:.2f} ".format(minselling-localprice))
             messages.info(request,_("Profit percent at local price: ")+" {0:.2f} % ".format(utility.calculate_profit_percent(onlineprice,fee_prog,localprice)))
