@@ -20,12 +20,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJSECRET','=9eid=l%3vrw!1e!6gthq=@n)0k)6ybnatlzd-ou6@=6@&(s9b')
+SECRET_KEY = os.environ.get(
+    'DJSECRET', '=9eid=l%3vrw!1e!6gthq=@n)0k)6ybnatlzd-ou6@=6@&(s9b')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG',False)
+DEBUG = os.environ.get('DEBUG', False)
 
-ALLOWED_HOSTS = [os.environ.get('ALLOWEDHOSTS',"127.0.0.1")]
+ALLOWED_HOSTS = [os.environ.get('ALLOWEDHOSTS', "127.0.0.1")]
 
 
 # Application definition
@@ -77,36 +78,16 @@ WSGI_APPLICATION = 'salesManagement.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-if os.getenv('GAE_APPLICATION', None):
-    # Running on production App Engine, so connect to Google Cloud SQL using
-    # the unix socket at /cloudsql/<your-cloudsql-connection string>    
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'HOST': os.getenv("DBHOST",None),
-            'NAME': os.getenv("DBNAME",None),
-            'USER': os.getenv("DBUSER",None),
-            'PASSWORD': os.getenv("DBPASSWORD",None),
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': os.getenv("DBHOST", None),
+        'PORT': os.getenv("DBPORT", None),
+        'NAME': os.getenv("DBNAME", None),
+        'USER': os.getenv("DBUSER", None),
+        'PASSWORD': os.getenv("DBPASSWORD", None),
     }
-else:
-    # Running locally so connect to either a local MySQL instance or connect to
-    # Cloud SQL via the proxy. To start the proxy via command line:
-    #
-    #     $ cloud_sql_proxy -instances=[INSTANCE_CONNECTION_NAME]=tcp:3306
-    #
-    # See https://cloud.google.com/sql/docs/mysql-connect-proxy
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'HOST': os.getenv("DBHOST",None),
-            'PORT': os.getenv("DBPORT",None),
-            'NAME': os.getenv("DBNAME",None),
-            'USER': os.getenv("DBUSER",None),
-            'PASSWORD': os.getenv("DBPASSWORD",None),
-        }
-    }
-
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -127,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
-        
+
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
@@ -138,7 +119,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PAGINATION_CLASS': None,
     'PAGE_SIZE': None,
-        'DEFAULT_PERMISSION_CLASSES': (
+    'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
 }

@@ -3,7 +3,7 @@ from .models import product,batch,sales,feeprog,BatchStatus,Statistics
 class productSerliz(serializers.ModelSerializer):
     class Meta:
         model=product
-        fields=('name','rimage','description')
+        fields=('name','rimage','description','avalible')
 
 class batchSerliz(serializers.ModelSerializer):
     class Meta:

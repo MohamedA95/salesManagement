@@ -27,8 +27,9 @@
     var columnDefs = [
       { headerName: {% trans "'Name'" %}, field: "name", sortable: true, filter: true,checkboxSelection: true },
       { headerName: {% trans "'Image'" %}, field: "rimage"},
-      { headerName: {% trans "'Description'" %}, field: "description", sortable: true, filter: true }];
-
+      { headerName: {% trans "'Description'" %}, field: "description", sortable: true, filter: true }],
+      { headerName: {% trans "'Avalible'" %}, field: "avalible", sortable: true, filter: true }];
+      
     // let the grid know which columns and what data to use
     var gridOptions = { paginationAutoPageSize:'true',pagination:'true',columnDefs: columnDefs,  rowSelection: 'multiple' ,onFirstDataRendered(params) {params.api.sizeColumnsToFit();}};
     // create the grid passing in the div to use together with the columns & data we want to use

@@ -69,9 +69,9 @@ def rmit(request):
             salesObj.profitpercent = (salesObj.unitprofit/salesObj.saleprice)*100
             salesObj.save()
             try:
-                utility.editStatistics('capital',salesObj.saleprice*salesObj.quant)
-                utility.editStatistics(batchObj.status,-batchprice*salesObj.quant)
-                utility.editStatistics('total',salesObj.totalprofit)
+                utility.edit_statistics('capital',salesObj.saleprice*salesObj.quant)
+                utility.edit_statistics(batchObj.status,-batchprice*salesObj.quant)
+                utility.edit_statistics('total',salesObj.totalprofit)
             except:
                 print("Unexpected error:", sys.exc_info()[0])
             messages.info(request, _("Item removed successfully!"))
@@ -94,7 +94,7 @@ def addit(request):
             batchObj.unit_price *= exrate
             batchObj.total_cost=form.cleaned_data['total_cost']*exrate
             batchObj.minselling = utility.calMinSelling(batchObj.unit_price,batchObj.feeprog)
-            batchObj.profit10 = utility.calSellingatProfitPercent(batchObj.unit_price,batchObj.feeprog,0.1)
+            batchObj.profit10 = utility.calculate_selling_profit_percent(batchObj.unit_price,batchObj.feeprog,0.1)
             batchObj.status= form.cleaned_data['status']
             if(form.cleaned_data['batchid']==""):
                 batchObj.batchid=str(batchObj.product_type)
@@ -103,11 +103,11 @@ def addit(request):
                 batchObj.batchid=form.cleaned_data['batchid']
             batchObj.save()
             product.objects.filter(name__exact=form.cleaned_data['product_type']).update(avalible=True)
-            utility.editStatistics('capital',-batchObj.total_cost)
+            utility.edit_statistics('capital',-batchObj.total_cost)
             try:
-                utility.editStatistics(batchObj.status,batchObj.total_cost)
+                utility.edit_statistics(batchObj.status,batchObj.total_cost)
             except:
-                utility.createStatistics(batchObj.status,batchObj.total_cost)
+                utility.create_statistics(batchObj.status,batchObj.total_cost)
             messages.info(request, _("Item added successfully!"))
         else:
             for e in form.errors:
@@ -121,7 +121,7 @@ def repproducts(request):
     return render(request, 'repproducts.html')
 
 def repbatches(request):
-    return render(request, 'repbatches.html',{'batchStatus':utility.querysetToJSlist(BatchStatus.objects.all())}) #since we have a small number of status, this should not be heavy on RAM
+    return render(request, 'repbatches.html',{'batchStatus':utility.queryset_to_jslist(BatchStatus.objects.all())}) #since we have a small number of status, this should not be heavy on RAM
 
 def repstatistics(request):
     return render(request, 'repstatistics.html')
@@ -141,8 +141,9 @@ def calc(request):
             localprice=form.cleaned_data['local_price']
             onlineprice=float(form.cleaned_data['unit_cost'])*exrate
             minselling = utility.calMinSelling(onlineprice,fee_prog)
-            messages.info(request, _("Min selling price is ")+" {0:.2f} ".format(minselling)+_(" The diff between Min selling and Local price: ")+" {0:.2f} ".format(localprice-minselling))
-            messages.info(request,_("Profit percent at local price: ")+" {0:.2f} % ".format(utility.calProfitPercent(onlineprice,fee_prog,localprice)))
+            messages.info(request, _("Min selling price is ")+" {0:.2f} ".format(minselling))
+            messages.info(request,_("The diff between Min selling and Local price: ")+" {0:.2f} ".format(minselling-localprice))
+            messages.info(request,_("Profit percent at local price: ")+" {0:.2f} % ".format(utility.calculate_profit_percent(onlineprice,fee_prog,localprice)))
     return render(request, 'calc.html', {'form': calcform})
 
 def getBatchesForProduct(request,product):
@@ -156,14 +157,14 @@ def rmsaleorder(request):
 
 def changeBatchStatus(request):
     batchObj=batch.objects.get(batchid__exact=request.META["HTTP_BATCHID"])
-    utility.editStatistics(batchObj.status,-batchObj.total_cost)
+    utility.edit_statistics(batchObj.status,-batchObj.total_cost)
     batchObj.status=BatchStatus.objects.get(name__exact=request.META["HTTP_NEWVAL"])
-    utility.editStatistics(batchObj.status,batchObj.total_cost)
+    utility.edit_statistics(batchObj.status,batchObj.total_cost)
     batchObj.save()
     return redirect('/rep/batches')
 
 def editCompanyCapital(request):
-    utility.newValueStatistics('capital',float(request.META["HTTP_NEWVAL"]))
+    utility.new_statistics_value('capital',float(request.META["HTTP_NEWVAL"]))
     temp={}
     totalStat=Statistics.objects.get(name__exact='total')
     totalStat.value=float(request.META["HTTP_NEWVAL"])

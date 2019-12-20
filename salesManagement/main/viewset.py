@@ -54,15 +54,15 @@ class salesCustom(APIView):
             batchObj.quant=salesObj.quant
             batchObj.batchid=str(salesObj.product_type)+"return"
             batchObj.unit_price=salesObj.saleprice-salesObj.unitprofit
-            batchObj.minselling=utility.calMinSelling(batchObj.unit_price,request.META["HTTP_FEEPROG"])
+            batchObj.minselling=utility.calcultate_min_selling(batchObj.unit_price,request.META["HTTP_FEEPROG"])
             batchObj.currency=currency.objects.get(name__exact='SAR')
             batchObj.total_cost=batchObj.unit_price*batchObj.quant
-            batchObj.profit10=utility.calSellingatProfitPercent(batchObj.unit_price,request.META["HTTP_FEEPROG"],0.1)
+            batchObj.profit10=utility.calculate_selling_profit_percent(batchObj.unit_price,request.META["HTTP_FEEPROG"],0.1)
             batchObj.status=batch.objects.get(name__exact=request.META["HTTP_STATUS"])
             batchstatus=batchObj.status
             batchObj.save()
-        utility.editStatistics('total',-salesObj.totalprofit)
-        utility.editStatistics('capital',-salesObj.saleprice*salesObj.quant)
-        utility.editStatistics(batchstatus,batchObj.unit_price*salesObj.quant)
+        utility.edit_statistics('total',-salesObj.totalprofit)
+        utility.edit_statistics('capital',-salesObj.saleprice*salesObj.quant)
+        utility.edit_statistics(batchstatus,batchObj.unit_price*salesObj.quant)
         salesObj.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
