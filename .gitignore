@@ -6,3 +6,4 @@ salesManagement/**/*.pyc
 salesManagement/static
 salesManagement/app.yaml
 .gcloudignore
+salesManagement/mydatabase

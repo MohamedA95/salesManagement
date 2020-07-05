@@ -24,7 +24,7 @@ SECRET_KEY = os.environ.get(
     'DJSECRET', '=9eid=l%3vrw!1e!6gthq=@n)0k)6ybnatlzd-ou6@=6@&(s9b')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', False)
+DEBUG = os.environ.get('DEBUG', True)
 
 ALLOWED_HOSTS = [os.environ.get('ALLOWEDHOSTS', "127.0.0.1")]
 
@@ -80,12 +80,8 @@ WSGI_APPLICATION = 'salesManagement.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'HOST': os.getenv("DBHOST", None),
-        'PORT': os.getenv("DBPORT", None),
-        'NAME': os.getenv("DBNAME", None),
-        'USER': os.getenv("DBUSER", None),
-        'PASSWORD': os.getenv("DBPASSWORD", None),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
     }
 }
 
@@ -127,7 +123,7 @@ REST_FRAMEWORK = {
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'ar'
+# LANGUAGE_CODE = 'ar'
 LANGUAGES = [
     ('en', 'English'),
     ('ar', 'Arabic'),

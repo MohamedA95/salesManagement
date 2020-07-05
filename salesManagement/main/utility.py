@@ -1,20 +1,20 @@
-from .models import feeprog,Statistics
-def calcultate_min_selling(unitCost,feeProg):
+from .models import fee_prog,Statistics
+def calcultate_min_selling(unitCost,fee_prog):
     # Returns the minumin selling price based on the fee prog and the unit cost
-    add = getattr(feeprog.objects.get(name__exact=feeProg), 'addfee')
-    multiply = (1-getattr(feeprog.objects.get(name__exact=feeProg), 'mulfee')/100) # if the original value saved in DB is 10 multiply would equla 0.9 
+    add = getattr(fee_prog.objects.get(name__exact=fee_prog), 'add_fee')
+    multiply = (1-getattr(fee_prog.objects.get(name__exact=fee_prog), 'multiply_fee')/100) # if the original value saved in DB is 10 multiply would equla 0.9 
     return (add+float(unitCost))/multiply
 
-def calculate_selling_profit_percent(unitCost,feeProg,percent):
+def calculate_selling_profit_percent(unitCost,fee_prog,percent):
     # Returns the selling price that would result in percent% profit based on fee prog and percent
-    add = getattr(feeprog.objects.get(name__exact=feeProg), 'addfee')
-    multiply = 1-(getattr(feeprog.objects.get(name__exact=feeProg), 'mulfee')/100)
+    add = getattr(fee_prog.objects.get(name__exact=fee_prog), 'add_fee')
+    multiply = 1-(getattr(fee_prog.objects.get(name__exact=fee_prog), 'multiply_fee')/100)
     return (add+float(unitCost))/(multiply-percent)
 
-def calculate_profit_percent(unitCost,feeProg,sellingPrice):
+def calculate_profit_percent(unitCost,fee_prog,sellingPrice):
     # Returns the profit percent based on the selling price, unit cost and fee prog
-    add = getattr(feeprog.objects.get(name__exact=feeProg), 'addfee')
-    multiply = 1-(getattr(feeprog.objects.get(name__exact=feeProg), 'mulfee')/100)
+    add = getattr(fee_prog.objects.get(name__exact=fee_prog), 'add_fee')
+    multiply = 1-(getattr(fee_prog.objects.get(name__exact=fee_prog), 'multiply_fee')/100)
     res=((((float(sellingPrice)-add)*multiply)/float(unitCost))-1)*100
     return res
 

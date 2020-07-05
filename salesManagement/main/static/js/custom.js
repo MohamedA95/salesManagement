@@ -36,6 +36,6 @@ function changeShipmentState(data){
             }
         }
     });
-    $.ajax({ type: "POST", url: '/api/changeBatchStatus/', headers: {'newVal':data['newValue'],'batchid':data['data']['batchid']}});
+    $.ajax({ type: "POST", url: '/api/changeBatchStatus/', headers: {'newVal':data['newValue'],'batch_id':data['data']['batch_id']}});
 
 }

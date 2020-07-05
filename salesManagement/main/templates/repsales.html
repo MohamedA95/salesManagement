@@ -11,10 +11,10 @@
             $('.nav-item').find('li.active').removeClass('active');
             $('#sales').addClass('active');
             $.ajax({
-                 url: "/api/feeprogVS/",
+                 url: "/api/fee_progVS/",
                  type: "GET",
                  success: function(data){
-                     data['results'].forEach(el => {$('#feeProgSelect').append("<option value='"+el['name']+"'>"+el['name']+"</option>");});
+                     data['results'].forEach(el => {$('#fee_progSelect').append("<option value='"+el['name']+"'>"+el['name']+"</option>");});
                  }
              });
         });
@@ -31,13 +31,13 @@
         var columnDefs = [
             { headerName: {% trans "'Product Type'" %}, field: "product_type", sortable: true, filter: true, checkboxSelection: true },
             { headerName: {% trans "'Quantity'" %}, field: "quant", sortable: true, filter: true },
-            { headerName: {% trans "'Sale Price'" %}, field: "saleprice", sortable: true, filter: true ,valueGetter: function(params) { return params.data.saleprice.toFixed(2); }},
-            { headerName: {% trans "'Unit Profit'" %}, field: "unitprofit", sortable: true, filter: true ,valueGetter: function(params) { return params.data.unitprofit.toFixed(2); }},
-            { headerName: {% trans "'Unit Profit %'" %}, field: "profitpercent", sortable: true, filter: true ,valueGetter: function(params) { return params.data.profitpercent.toFixed(2); }},
-            { headerName: {% trans "'Total Profit'" %}, field: "totalprofit", sortable: true, filter: true ,valueGetter: function(params) { return params.data.totalprofit.toFixed(2); }},
-            { headerName: {% trans "'Order ID'" %}, field: "orderid", sortable: true, filter: true },
+            { headerName: {% trans "'Sale Price'" %}, field: "sale_price", sortable: true, filter: true ,valueGetter: function(params) { return params.data.sale_price.toFixed(2); }},
+            { headerName: {% trans "'Unit Profit'" %}, field: "unit_profit", sortable: true, filter: true ,valueGetter: function(params) { return params.data.unit_profit.toFixed(2); }},
+            { headerName: {% trans "'Unit Profit %'" %}, field: "profit_percent", sortable: true, filter: true ,valueGetter: function(params) { return params.data.profit_percent.toFixed(2); }},
+            { headerName: {% trans "'Total Profit'" %}, field: "total_profit", sortable: true, filter: true ,valueGetter: function(params) { return params.data.total_profit.toFixed(2); }},
+            { headerName: {% trans "'Order ID'" %}, field: "order_id", sortable: true, filter: true },
             { headerName: {% trans "'Date'" %}, field: "date", sortable: true, filter: true },
-            { headerName: {% trans "'Batch ID'" %}, field: "batchid", filter: true }];
+            { headerName: {% trans "'Batch ID'" %}, field: "batch_id", filter: true }];
         // let the grid know which columns and what data to use
         var gridOptions = { paginationAutoPageSize:'true',pagination:'true', columnDefs: columnDefs, rowSelection: 'multiple', onFirstDataRendered(params) {params.api.sizeColumnsToFit();} };
         // create the grid passing in the div to use together with the columns & data we want to use
@@ -53,8 +53,8 @@
             });
             var selectedNodes = gridOptions.api.getSelectedNodes()
             var selectedData = selectedNodes.map(function (node) { return node.data })
-            var orderid = selectedData.map(function (node) { return node.orderid }).join(',')
-            $.ajax({ type: "DELETE", url: '/api/salescustom/' + orderid + '/', headers: {'feeprog': $('#feeProgSelect').val()}});
+            var order_id = selectedData.map(function (node) { return node.order_id }).join(',')
+            $.ajax({ type: "DELETE", url: '/api/salescustom/' + order_id + '/', headers: {'fee_prog': $('#fee_progSelect').val()}});
         }
     </script>
     {%endblock%}

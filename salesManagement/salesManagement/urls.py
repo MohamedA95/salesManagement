@@ -16,12 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from django.conf.urls.i18n import i18n_patterns
-from main.viewset import feeprogViewSet,productViewSet,batchViewSet,salesViewSet, statisticsViewset,salesCustom
+from main.viewset import fee_progViewSet,productViewSet,batchViewSet,salesViewSet, statisticsViewset,salesCustom
 from main.views import changeBatchStatus,editCompanyCapital
 from rest_framework import routers
 
 router=routers.DefaultRouter()
-router.register(r'feeprogVS',feeprogViewSet)
+router.register(r'fee_progVS',fee_progViewSet)
 router.register(r'productVS',productViewSet)
 router.register(r'batchVS',batchViewSet)
 router.register(r'salesVS',salesViewSet)
@@ -32,7 +32,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('api-auth/', include('rest_framework.urls')),
-    path('api/salescustom/<str:orderid>/',salesCustom.as_view()),
+    path('api/salescustom/<str:order_id>/',salesCustom.as_view()),
     path('api/changeBatchStatus/',changeBatchStatus),
     path('api/editCompanyCapital/',editCompanyCapital),
     path('api/',include(router.urls)),

@@ -30,8 +30,8 @@
         <br>
         <br>
         <sapn>{% trans  "Fee program" %}</sapn>
-        <select id="feeProgSelect">
-            {% for fp in feeprogs %}
+        <select id="fee_progSelect">
+            {% for fp in fee_progs %}
             <option value="{{ fp.name }}">{{ fp.name }}</option>
             {% endfor %}
         </select>
@@ -43,8 +43,8 @@
             {% endfor %}
         </select>
         <br><br>
-        <label for="orderid">{% trans 'Order ID' %}</label>
-        <input type="text" id="orderid">
+        <label for="order_id">{% trans 'Order ID' %}</label>
+        <input type="text" id="order_id">
         <br><br>
         <button onclick="Deletesales()">{% trans 'Delete Sale' %}</button>
 
@@ -58,7 +58,7 @@
                     }
                 }
             });
-            $.ajax({ type: "DELETE", url: '/api/salescustom/' + $('#orderid').val() + '/', headers: {'feeprog': $('#feeProgSelect').val(),'status':$('#statusSelect').val()}});
+            $.ajax({ type: "DELETE", url: '/api/salescustom/' + $('#order_id').val() + '/', headers: {'fee_prog': $('#fee_progSelect').val(),'status':$('#statusSelect').val()}});
         }
     </script>
     

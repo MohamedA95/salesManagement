@@ -1,6 +1,6 @@
 # Sales Management
 Small django project-sales management system-
-The system is designed to be used by traditional stores that at the same time sell online, and need to track there current stock and it's cost.
+The system is designed to be used by traditional stores that at the same time selling online, and need to track there current stock and it's cost and easily calculate break even price.
 
 # Pages
 The system has seven main pages
