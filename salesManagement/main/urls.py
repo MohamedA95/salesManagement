@@ -5,18 +5,18 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('addpro', views.addpro),
-    path('rmit', views.rmit),
-    path('addit', views.addit),
-    path('rep/sales', views.repsales),
-    path('rep/products', views.repproducts),
-    path('rep/batches', views.repbatches),
-    path('rep/statistics/',views.repstatistics),
-    path('app/rmsaleorder',views.rmsaleorder),
+    path('addpro', views.add_product),
+    path('rmit', views.remove_item),
+    path('addit', views.add_item),
+    path('rep/sales', views.report_sales),
+    path('rep/products', views.report_products),
+    path('rep/batches', views.report_batches),
+    path('rep/statistics/',views.report_statistics),
+    path('app/rmsaleorder',views.remove_sales_order),
     path('home', views.home),
-    path('calc',views.calc),
+    path('calc',views.calculate_profit),
     path('',views.login),
-    path('ajax/productbatches/<str:product>/',views.getBatchesForProduct)
+    path('ajax/productbatches/<str:product>/',views.get_batches_for_product)
 
     
 ]

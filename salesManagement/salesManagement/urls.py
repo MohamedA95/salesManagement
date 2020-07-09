@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf.urls.i18n import i18n_patterns
 from main.viewset import fee_progViewSet,productViewSet,batchViewSet,salesViewSet, statisticsViewset,salesCustom
-from main.views import changeBatchStatus,editCompanyCapital
+from main.views import change_batch_status,edit_company_capital
 from rest_framework import routers
 
 router=routers.DefaultRouter()
@@ -33,8 +33,8 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('api/salescustom/<str:order_id>/',salesCustom.as_view()),
-    path('api/changeBatchStatus/',changeBatchStatus),
-    path('api/editCompanyCapital/',editCompanyCapital),
+    path('api/changeBatchStatus/',change_batch_status),
+    path('api/editCompanyCapital/',edit_company_capital),
     path('api/',include(router.urls)),
 ]
 

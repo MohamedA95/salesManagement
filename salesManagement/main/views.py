@@ -10,7 +10,7 @@ from django.utils.translation import gettext as _
 from datetime import date
 import sys
 
-def addpro(request):
+def add_product(request):
     if request.method == "POST":
         form = productform(request.POST,request.FILES)
         if form.is_valid():
@@ -31,7 +31,7 @@ def addpro(request):
             messages.error(request, "A product with that name already exists!")
     return render(request, 'addproduct.html', {'form': productform})
 
-def rmit(request):
+def remove_item(request):
     if request.method == "POST":
         form = salesform(request.POST)
         if form.is_valid():
@@ -80,7 +80,7 @@ def rmit(request):
                 messages.error(request, _("ERROR:")+e)
     return render(request, 'removeitem.html', {'form': salesform})
 
-def addit(request):
+def add_item(request):
     if request.method == "POST":
         form = batchform(request.POST)
         if form.is_valid():
@@ -114,16 +114,16 @@ def addit(request):
                 messages.error(request, "ERROR:"+e)
     return render(request, 'additem.html', {'form': batchform})
 
-def repsales(request):
+def report_sales(request):
     return render(request, 'repsales.html')
 
-def repproducts(request):
+def report_products(request):
     return render(request, 'repproducts.html')
 
-def repbatches(request):
+def report_batches(request):
     return render(request, 'repbatches.html',{'batchStatus':utility.queryset_to_jslist(BatchStatus.objects.all())}) #since we have a small number of status, this should not be heavy on RAM
 
-def repstatistics(request):
+def report_statistics(request):
     return render(request, 'repstatistics.html')
 
 def home(request):
@@ -132,7 +132,7 @@ def home(request):
 def login(request):
     return redirect('/accounts/login/')
 
-def calc(request):
+def calculate_profit(request):
     if request.method=="POST":
         form=calcform(request.POST)
         if form.is_valid() :
@@ -146,16 +146,16 @@ def calc(request):
             messages.info(request,_("Profit percent at local price: ")+" {0:.2f} % ".format(utility.calculate_profit_percent(onlineprice,fee_prog,localprice)))
     return render(request, 'calc.html', {'form': calcform})
 
-def getBatchesForProduct(request,product):
+def get_batches_for_product(request,product):
     batches=batch.objects.filter(product_type__exact=product,status__in=['FBS','Stock'])
     return render(request,'batchesforproduct.html',{'batches':batches})
 
-def rmsaleorder(request):
+def remove_sales_order(request):
     fee_progs=fee_prog.objects.all()
     statuss=BatchStatus.objects.all()
     return render(request,'removesaleorder.html',{'fee_progs':fee_progs,'statuss':statuss})
 
-def changeBatchStatus(request):
+def change_batch_status(request):
     batchObj=batch.objects.get(batch_id__exact=request.META["HTTP_batch_id"])
     utility.edit_statistics(batchObj.status,-batchObj.total_cost)
     batchObj.status=BatchStatus.objects.get(name__exact=request.META["HTTP_NEWVAL"])
@@ -163,7 +163,7 @@ def changeBatchStatus(request):
     batchObj.save()
     return redirect('/rep/batches')
 
-def editCompanyCapital(request):
+def edit_company_capital(request):
     utility.new_statistics_value('capital',float(request.META["HTTP_NEWVAL"]))
     temp={}
     totalStat=Statistics.objects.get(name__exact='total')
