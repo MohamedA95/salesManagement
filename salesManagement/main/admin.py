@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import currency,product,batch,sales,fee_prog,BatchStatus,Statistics
+from .models import Currency,Product,Batch,Sales,FeeProgram,BatchStatus,Statistics
 # Register your models here.
-admin.site.register(currency)
-admin.site.register(product)
-admin.site.register(batch)
-admin.site.register(sales)
-admin.site.register(fee_prog)
+admin.site.register(Currency)
+admin.site.register(Product)
+admin.site.register(Batch)
+admin.site.register(Sales)
+admin.site.register(FeeProgram)
 admin.site.register(BatchStatus)
 admin.site.register(Statistics)

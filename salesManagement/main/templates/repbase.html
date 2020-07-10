@@ -41,7 +41,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav justify-content-center">
         <li id="aproduct"><a class="nav-link" href="/app/addpro">{% trans "Add Product" %}</a></li>
         <li id="aitem"><a class="nav-link" href="/app/addit">{% trans "Add Item" %}</a></li>
         <li id="ritem"><a class="nav-link" href="/app/rmit">{% trans "Remove Item" %}</a></li>
@@ -50,9 +50,6 @@
         <li id="batches"><a class="nav-link" href="/rep/batches">{% trans "Batches" %}</a></li>
         <li id="statistics"><a class="nav-link" href="/rep/statistics">{% trans "Statistics" %}</a></li>
         <li id="rsaleorder"><a class="nav-link" href="/app/rmsaleorder">{% trans "Remove Sale order" %}</a></li>
-
-      </ul>
-      <ul class="navbar-nav">
         <a class="nav-link" href="/app/calc">{% trans "Calculate Profit" %}</a>
         <a class="nav-link" href="{% url 'logout'%}">{% trans "Log Out" %}</a>
         <form action="{% url 'set_language' %}" method="post">
